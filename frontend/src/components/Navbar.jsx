@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 const navLinks = [
   { title: 'Home', link: '/' },
-  { title: 'Jobs', link: './jobs' },
+  { title: 'Jobs', link: '/jobs' },
   { title: 'About', link: '/about' },
   { title: 'Contact Us', link: '/contact' }, // ✅ Now inside the mobile menu
 ];
