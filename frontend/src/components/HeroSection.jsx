@@ -35,10 +35,7 @@ const HeroSection = () => {
         <div className="mx-auto mb-12 w-full max-w-3xl text-center md:mb-16 lg:mb-20">
           <h1 className="mb-4 text-4xl font-semibold md:text-6xl">
             Find Your Dream Job Without The{' '}
-            <span className="bg-[url('https://assets.website-files.com/63904f663019b0d8edf8d57c/6390526ac2a607693620c97b_Rectangle%2010.svg')] bg-cover bg-center px-4 text-white">
-              Hassles
-            </span>
-            .
+            <span className="px-4 text-[#1353fe]">Hassles</span>
           </h1>
           <p className="mx-auto mb-5 max-w-[528px] text-xl text-[#636262] lg:mb-8">
             Browse and apply to quality job listings with our streamlined portal
