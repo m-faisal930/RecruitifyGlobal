@@ -1,4 +1,5 @@
 import AboutUsPage from "./pages/AboutUsPage";
+import ApplicantForm from "./pages/ApplicantForm";
 import ContactPage from "./pages/ContactPage";
 import JobsPage from "./pages/JobsPage";
 import LandingPage from "./pages/LandingPage";
@@ -15,6 +16,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/apply/:id" element={<ApplicantForm />} />
         </Routes>
       </BrowserRouter>
 

@@ -147,6 +147,7 @@
 
 
 import { Briefcase, MapPin, Clock, Bookmark, Share2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const JobCard = ({ job }) => {
   return (
@@ -206,9 +207,14 @@ const JobCard = ({ job }) => {
       {/* Footer with Apply Button */}
       <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4">
         <p className="text-sm text-gray-500">{job.postedDate}</p>
-        <button className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+        <Link to={`/apply/${job.id}`} className="flex-shrink-0">
+          <button className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 hover:cursor-pointer">
+            Apply Now
+          </button>
+        </Link>
+        {/* <button className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 hover:cursor-pointer">
           Apply Now
-        </button>
+        </button> */}
       </div>
     </div>
   );
