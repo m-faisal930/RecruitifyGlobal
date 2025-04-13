@@ -1,5 +1,153 @@
+// import { useState } from 'react';
+// import { Outlet, Link } from 'react-router-dom';
+// import {
+//   FaBriefcase,
+//   FaUsers,
+//   FaChartLine,
+//   FaCog,
+//   FaSignOutAlt,
+//   FaBars,
+//   FaTimes,
+// } from 'react-icons/fa';
+
+// const AdminLayout = () => {
+//   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+//   return (
+//     <div className="flex h-screen bg-gray-50">
+//       {/* Mobile sidebar toggle */}
+//       <button
+//         className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-blue-600 text-white"
+//         onClick={() => setSidebarOpen(!sidebarOpen)}
+//       >
+//         {sidebarOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+//       </button>
+
+//       {/* Sidebar */}
+//       <div
+//         className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+//         md:translate-x-0 transform fixed md:static inset-y-0 left-0 w-64 bg-white shadow-lg 
+//         z-40 transition-transform duration-200 ease-in-out`}
+//       >
+//         <div className="flex items-center justify-center h-16 px-4 bg-blue-600">
+//           <h1 className="text-white font-bold text-xl">JobPortal Admin</h1>
+//         </div>
+//         <nav className="px-4 py-6">
+//           <ul className="space-y-2">
+//             <li>
+//               <Link
+//                 to="/admin/dashboard"
+//                 className="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+//               >
+//                 <FaChartLine className="mr-3" />
+//                 Dashboard
+//               </Link>
+//             </li>
+//             <li>
+//               <Link
+//                 to="/admin/jobs"
+//                 className="flex items-center px-4 py-3 rounded-lg bg-blue-50 text-blue-600"
+//               >
+//                 <FaBriefcase className="mr-3" />
+//                 Job Management
+//               </Link>
+//             </li>
+//             <li>
+//               <Link
+//                 to="/admin/applicants"
+//                 className="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+//               >
+//                 <FaUsers className="mr-3" />
+//                 Applicants
+//               </Link>
+//             </li>
+//             <li>
+//               <Link
+//                 to="/admin/settings"
+//                 className="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+//               >
+//                 <FaCog className="mr-3" />
+//                 Settings
+//               </Link>
+//             </li>
+//           </ul>
+//           <div className="mt-8 pt-4 border-t border-gray-200">
+//             <button className="flex items-center w-full px-4 py-3 rounded-lg text-gray-700 hover:bg-red-50 hover:text-red-600">
+//               <FaSignOutAlt className="mr-3" />
+//               Logout
+//             </button>
+//           </div>
+//         </nav>
+//       </div>
+
+//       {/* Main content */}
+//       <div className="flex-1 flex flex-col overflow-hidden">
+//         <header className="bg-white shadow-sm">
+//           <div className="flex items-center justify-between h-16 px-6">
+//             <div className="flex items-center">
+//               <h2 className="text-lg font-semibold text-gray-900">
+//                 Admin Dashboard
+//               </h2>
+//             </div>
+//             <div className="flex items-center">
+//               <div className="relative">
+//                 <img
+//                   className="h-8 w-8 rounded-full"
+//                   src="https://randomuser.me/api/portraits/men/32.jpg"
+//                   alt="Admin profile"
+//                 />
+//               </div>
+//             </div>
+//           </div>
+//         </header>
+//         <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
+//           <Outlet />
+//         </main>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AdminLayout;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import {
   FaBriefcase,
   FaUsers,
@@ -12,6 +160,9 @@ import {
 
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -37,7 +188,11 @@ const AdminLayout = () => {
             <li>
               <Link
                 to="/admin/dashboard"
-                className="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                className={`flex items-center px-4 py-3 rounded-lg ${
+                  isActive('/admin/dashboard')
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                }`}
               >
                 <FaChartLine className="mr-3" />
                 Dashboard
@@ -46,7 +201,11 @@ const AdminLayout = () => {
             <li>
               <Link
                 to="/admin/jobs"
-                className="flex items-center px-4 py-3 rounded-lg bg-blue-50 text-blue-600"
+                className={`flex items-center px-4 py-3 rounded-lg ${
+                  isActive('/admin/jobs')
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                }`}
               >
                 <FaBriefcase className="mr-3" />
                 Job Management
@@ -55,7 +214,11 @@ const AdminLayout = () => {
             <li>
               <Link
                 to="/admin/applicants"
-                className="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                className={`flex items-center px-4 py-3 rounded-lg ${
+                  isActive('/admin/applicants')
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                }`}
               >
                 <FaUsers className="mr-3" />
                 Applicants
@@ -64,7 +227,11 @@ const AdminLayout = () => {
             <li>
               <Link
                 to="/admin/settings"
-                className="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                className={`flex items-center px-4 py-3 rounded-lg ${
+                  isActive('/admin/settings')
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                }`}
               >
                 <FaCog className="mr-3" />
                 Settings
@@ -85,7 +252,7 @@ const AdminLayout = () => {
         <header className="bg-white shadow-sm">
           <div className="flex items-center justify-between h-16 px-6">
             <div className="flex items-center">
-              <h2 className="text-lg font-semibold text-gray-900">
+              <h2 className="text-lg font-semibold text-gray-900 pl-10">
                 Admin Dashboard
               </h2>
             </div>
