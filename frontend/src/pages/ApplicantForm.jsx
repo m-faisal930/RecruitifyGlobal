@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { FiUpload, FiTrash2, FiPlus, FiCalendar, FiBriefcase, FiBookOpen } from 'react-icons/fi';
+import { useParams } from 'react-router-dom';
 
 const ApplicantForm = () => {
+  const { id } = useParams(); // Get the job ID from the URL parameters
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -14,6 +16,7 @@ const ApplicantForm = () => {
     coverLetter: null,
     skills: '',
     languages: '',
+    job: id, // Include job ID in the form data
   });
 
   const [educationList, setEducationList] = useState([]);
@@ -166,7 +169,6 @@ const ApplicantForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) {
       return;
     }
@@ -175,35 +177,43 @@ const ApplicantForm = () => {
 
     try {
       const formDataToSend = new FormData();
+
+      // Append all form data
       Object.entries(formData).forEach(([key, value]) => {
         if (value instanceof File) {
           formDataToSend.append(key, value);
-        } else if (Array.isArray(value)) {
-          // Handle arrays if needed
-        } else if (typeof value === 'object' && value !== null) {
-          formDataToSend.append(key, JSON.stringify(value));
-        } else {
+        } else if (typeof value === 'string') {
           formDataToSend.append(key, value);
         }
       });
 
-      educationList.forEach((edu, index) => {
-        Object.entries(edu).forEach(([key, value]) => {
-          formDataToSend.append(`education[${index}].${key}`, value);
-        });
-      });
+      // Append education and experience as JSON strings
+      if (educationList.length > 0) {
+        formDataToSend.append('education', JSON.stringify(educationList));
+      }
 
-      experienceList.forEach((exp, index) => {
-        Object.entries(exp).forEach(([key, value]) => {
-          formDataToSend.append(`experience[${index}].${key}`, value);
-        });
-      });
+      if (experienceList.length > 0) {
+        formDataToSend.append('experience', JSON.stringify(experienceList));
+      }
+      // formDataToSend.append('job', id); // Assuming you want to send the job ID
 
-      // Simulated API submission
-      console.log('Form data submitted:', Object.fromEntries(formDataToSend.entries()));
+
+      const response = await fetch('http://localhost:5000/api/applicants', {
+        method: 'POST',
+        body: formDataToSend,
+        // Don't set Content-Type header - let the browser set it with the correct boundary
+      });
+      console.log(response);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit application');
+      }
+
+      const data = await response.json();
       alert('Application submitted successfully!');
 
-      // Reset
+      // Reset form
       setFormData({
         firstName: '',
         lastName: '',
@@ -221,12 +231,14 @@ const ApplicantForm = () => {
       setExperienceList([]);
     } catch (error) {
       console.error('Submission error:', error);
-      alert('There was an error submitting your application. Please try again.');
+      alert(
+        error.message ||
+          'There was an error submitting your application. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
-
 
 
   return (

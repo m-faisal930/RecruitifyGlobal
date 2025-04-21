@@ -152,47 +152,51 @@ import { Link } from 'react-router-dom';
 const JobCard = ({ job }) => {
   return (
     <div className="group h-full flex flex-col rounded-xl border border-gray-200 bg-gray-100 p-5 shadow-sm transition-all hover:shadow-md hover:border-blue-300">
-      <div className="flex flex-1 flex-col">
-        {/* Company Logo & Basic Info */}
-        <div className="flex items-start gap-3">
-          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-blue-50">
-            <Briefcase className="h-6 w-6 text-blue-600" />
+      <Link to={`/jobs/${job.id}`}>
+        
+        <div className="flex flex-1 flex-col">
+          {/* Company Logo & Basic Info */}
+          <div className="flex items-start gap-3">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-blue-50">
+              <Briefcase className="h-6 w-6 text-blue-600" />
+            </div>
+            <div className="min-w-0">
+              <h3 className="truncate text-lg font-semibold text-gray-900 group-hover:text-blue-600">
+                {job.title}
+              </h3>
+              <p className="truncate text-gray-600">{job.company}</p>
+            </div>
           </div>
-          <div className="min-w-0">
-            <h3 className="truncate text-lg font-semibold text-gray-900 group-hover:text-blue-600">
-              {job.title}
-            </h3>
-            <p className="truncate text-gray-600">{job.company}</p>
-          </div>
-        </div>
 
-        {/* Job Details */}
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
-          <div className="flex items-center gap-1 text-sm text-gray-600">
-            <MapPin className="h-4 w-4 flex-shrink-0 text-gray-400" />
-            <span className="truncate">{job.location}</span>
+          {/* Job Details */}
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
+            <div className="flex items-center gap-1 text-sm text-gray-600">
+              <MapPin className="h-4 w-4 flex-shrink-0 text-gray-400" />
+              <span className="truncate">{job.location}</span>
+            </div>
+            <div className="flex items-center gap-1 text-sm text-gray-600">
+              <Clock className="h-4 w-4 flex-shrink-0 text-gray-400" />
+              <span className="truncate">{job.type}</span>
+            </div>
+            <div className="flex items-center gap-1 text-sm text-gray-600">
+              <span className="truncate">{job.salary}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-1 text-sm text-gray-600">
-            <Clock className="h-4 w-4 flex-shrink-0 text-gray-400" />
-            <span className="truncate">{job.type}</span>
-          </div>
-          <div className="flex items-center gap-1 text-sm text-gray-600">
-            <span className="truncate">{job.salary}</span>
-          </div>
-        </div>
 
-        {/* Skills/Tags */}
-        <div className="mt-4 flex flex-wrap gap-2">
-          {job.skills.map((skill) => (
-            <span
-              key={skill}
-              className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600"
-            >
-              {skill}
-            </span>
-          ))}
+          {/* Skills/Tags */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {job.skills.map((skill) => (
+              <span
+                key={skill}
+                className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      </Link>
+      
 
       {/* Save/Share Buttons */}
       <div className="mt-4 flex justify-end gap-2">
