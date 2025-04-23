@@ -7,6 +7,8 @@ import AboutSection from '../components/AboutSection'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
 import ViewmoreButton from '../components/ViewmoreButton'
+import FeaturedJobsSection from '../components/FeaturedJobsSection'
+import HowItWorksSection from '../components/HowItWorksSection'
 
 export default function LandingPage() {
     const job =           {
@@ -23,14 +25,15 @@ export default function LandingPage() {
     <div>
       <Navbar />
       <HeroSection />
-      <JobSearchFilters />
+      {/* <JobSearchFilters /> */}
+      <FeaturedJobsSection />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6 mx-7">
+      {/* <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6 mx-7">
         <JobCard job={job} />
         <JobCard job={job} />
         <JobCard job={job} />
         <JobCard job={job} />
-      </div>
+      </div> */}
       <div className="flex justify-center mt-6">
         <ViewmoreButton />
       </div>
@@ -40,6 +43,7 @@ export default function LandingPage() {
         <div className="bg-white">
           {/* <AboutSection /> */}
           <ContactSection />
+          <HowItWorksSection />
         </div>
       </div>
       <Footer />
