@@ -1,7 +1,8 @@
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { HiOutlineArrowUp } from 'react-icons/hi';
 import { MdOutlineSend } from 'react-icons/md';
-import { BsBriefcase } from 'react-icons/bs';
+// import { BsBriefcase } from 'react-icons/bs';
+import logo from '../assets/logo.png';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -15,12 +16,8 @@ const Footer = () => {
           {/* Logo and description */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
-                <BsBriefcase className="h-5 w-5 text-white sm:h-6 sm:w-6" />
-              </div>
-              <span className="text-lg font-semibold sm:text-xl">
-                JobPortal
-              </span>
+              <img src={logo} alt="Logo" className="h-30" />
+
             </div>
             <p className="mt-3 text-sm text-gray-400 sm:mt-4 sm:text-base">
               Connecting talent with opportunities across Pakistan since 2023.
@@ -136,7 +133,7 @@ const Footer = () => {
         {/* Bottom footer */}
         <div className="mt-6 flex flex-col items-center justify-between sm:mt-8 md:flex-row">
           <p className="text-xs text-gray-500 sm:text-sm">
-            &copy; {new Date().getFullYear()} JobPortal. All rights reserved.
+            &copy; {new Date().getFullYear()} Recruitify Global. All rights reserved.
           </p>
           <div className="mt-3 sm:mt-4 md:mt-0">
             <button

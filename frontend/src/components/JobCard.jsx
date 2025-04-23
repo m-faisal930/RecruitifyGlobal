@@ -289,7 +289,7 @@ const JobCard = ({ job }) => {
   )
 
   return (
-    <div className="group flex flex-col bg-gray-50 rounded-2xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02] overflow-hidden">
+    <div className="font-work group flex flex-col bg-gray-50 rounded-2xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02] overflow-hidden">
       {/* SKILL TAGS */}
       <div className="px-6 py-4 bg-lightdiv flex flex-wrap gap-2">
         {skills.slice(0, 4).map((skill) => (
@@ -299,7 +299,7 @@ const JobCard = ({ job }) => {
           // >
           //   {skill}
           // </span>
-          <span className="bg-[#5F8DB8] text-white  text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">
+          <span className="bg-[#5F8DB8] text-white  text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm ">
             {skill}
           </span>
         ))}
@@ -316,13 +316,13 @@ const JobCard = ({ job }) => {
       {/* DETAILS */}
       <div className="px-6 space-y-4 mb-8">
         <div className="flex flex-wrap gap-2">
-          <span className="inline-flex items-center gap-1 bg-white text-dark text-sm font-medium px-3 py-1 rounded-full shadow-sm transition-colors group-hover:bg-gray-50">
+          <span className="inline-flex items-center gap-1 bg-white text-gray-800 text-sm font-medium px-3 py-1  rounded-sm   shadow-sm transition-colors group-hover:bg-gray-50">
             <Clock className="w-4 h-4" /> {type}
           </span>
-          <span className="inline-flex items-center gap-1 bg-white text-dark text-sm font-medium px-3 py-1 rounded-full shadow-sm transition-colors group-hover:bg-gray-50">
+          <span className="inline-flex items-center gap-1 bg-white text-dark text-sm font-medium px-3 py-1  rounded-sm  shadow-sm transition-colors group-hover:bg-gray-50">
             <Briefcase className="w-4 h-4" /> {experience}
           </span>
-          <span className="inline-flex items-center gap-1 bg-white text-dark text-sm font-medium px-3 py-1 rounded-full shadow-sm transition-colors group-hover:bg-gray-50">
+          <span className="inline-flex items-center gap-1 bg-white text-dark text-sm font-medium px-3 py-1  rounded-sm  shadow-sm transition-colors group-hover:bg-gray-50">
             <DollarSign className="w-4 h-4" /> {salary}
           </span>
         </div>

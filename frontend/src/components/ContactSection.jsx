@@ -225,7 +225,10 @@ export default function ContactSection() {
               {
                 icon: Mail,
                 label: 'Email Us',
-                lines: ['support@recruitifyglobal.com', 'info@recruitifyglobal.com'],
+                lines: [
+                  'support@recruitifyglobal.com',
+                  'info@recruitifyglobal.com',
+                ],
               },
               {
                 icon: Phone,
@@ -275,15 +278,25 @@ export default function ContactSection() {
           <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
             <form onSubmit={handleSubmit} className="space-y-6">
               {[
-                { id: 'name', label: 'Full Name', type: 'text', value: formData.name },
-                { id: 'email', label: 'Email Address', type: 'email', value: formData.email },
+                {
+                  id: 'name',
+                  label: 'Full Name',
+                  type: 'text',
+                  value: formData.name,
+                },
+                {
+                  id: 'email',
+                  label: 'Email Address',
+                  type: 'email',
+                  value: formData.email,
+                },
               ].map(({ id, label, type, value }) => (
                 <div key={id}>
                   <label
                     htmlFor={id}
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {label}
+                    {label} *
                   </label>
                   <input
                     id={id}
@@ -303,7 +316,7 @@ export default function ContactSection() {
                   htmlFor="message"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Your Message
+                  Your Message *
                 </label>
                 <textarea
                   id="message"
@@ -319,7 +332,7 @@ export default function ContactSection() {
 
               <button
                 type="submit"
-                className="inline-flex items-center justify-center rounded-full bg-buttons px-6 py-3 text-base font-work font-medium text-white shadow transition-transform duration-200 hover:scale-105 hover:bg-[#0041A8]"
+                className="inline-flex items-center justify-center rounded-full bg-buttons px-6 py-3 text-base font-work font-medium text-gray-700  hover:text-white cursor-pointer shadow transition-transform duration-200 hover:scale-105 hover:bg-[#0041A8]"
               >
                 Send Message
                 <Send className="ml-2 h-5 w-5" />
@@ -329,5 +342,5 @@ export default function ContactSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
