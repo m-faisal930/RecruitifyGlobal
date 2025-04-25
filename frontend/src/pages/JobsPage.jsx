@@ -11,6 +11,7 @@ import {
 import JobCard from '../components/JobCard';
 import { useJobs } from '../context/JobContext';
 import PageHero from '../components/PageHero';
+import Footer from '../components/Footer';
 
 
 // Jobs Listing Page
@@ -80,15 +81,17 @@ const JobsPage = () => {
 // console.log(currentJobs);
   return (
     <>
+      <div className='bg-gray-50'>
+        <PageHero
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Jobs', href: '/job' },
+          ]}
+        />
+      </div>
       {/* <Navbar /> */}
-      <div className="min-h-screen bg-gray-50 mt-10">
+      <div className="min-h-screen bg-gray-100 pt-5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <PageHero
-            breadcrumbs={[
-              { label: 'Home', href: '/' },
-              { label: 'Jobs', href: '/job' },
-            ]}
-          />
           <h1 className="text-3xl font-bold sm:text-4xl">
             Find Your Dream Job
           </h1>
@@ -96,7 +99,6 @@ const JobsPage = () => {
             Browse {transformedJobs.length} opportunities across Pakistan
           </p>
         </div>
-
 
         {/* Filter Section */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
@@ -176,8 +178,6 @@ const JobsPage = () => {
                   {/* <option value="Internship">Internship</option> */}
                 </select>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -302,7 +302,7 @@ const JobsPage = () => {
           )}
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

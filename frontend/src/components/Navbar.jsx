@@ -66,7 +66,7 @@ export default function Navbar() {
           <a
             href="/"
             
-            className="text-2xl font-bold text-dark hover:text-buttons transition-colors"
+            className="text-2xl font-bold hover:text-buttons transition-colors"
           >
             <img src={logo} alt="Logo" className="h-40 pt-3" />
             {/* Recruitify Global */}
@@ -82,8 +82,12 @@ export default function Navbar() {
                   href={href}
                   onClick={(e) => handleNavClick(e, href)}
                   className={`
-                    group relative px-3 py-2 font-medium transition-colors
-                    ${isActive ? 'text-buttons' : 'text-dark hover:text-buttons'}
+                    group relative px-3 py-2 font-medium transition-colors cursor-pointer
+                    ${
+                      isActive
+                        ? 'text-gray-900 font-bold'
+                        : 'text-[#0041A8] hover:text-gray-500'
+                    }
                   `}
                 >
                   {name}
@@ -94,7 +98,7 @@ export default function Navbar() {
                     `}
                   />
                 </a>
-              )
+              );
             })}
           </div>
 

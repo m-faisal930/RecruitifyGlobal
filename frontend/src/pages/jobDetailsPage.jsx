@@ -114,7 +114,7 @@ const JobDetailsPage = () => {
   return (
     <>
       {/* <Navbar /> */}
-      <div className="min-h-screen bg-gray-50 pt-10">
+      <div className="min-h-screen bg-gray-50 pt-5">
         <PageHero
           breadcrumbs={[
             { label: 'Home', href: '/' },
@@ -124,35 +124,23 @@ const JobDetailsPage = () => {
         />
 
         {/* Main job details */}
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div className="flex justify-center">
-              {job.status === 'active' ? (
-                <Link to={`/apply/${job._id}`}>
-                  <button
-                    className="w-full max-w-xs px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white 
-                         rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-colors shadow-md"
-                  >
-                    Apply Now
-                  </button>
-                </Link>
-              ) : (
-                <button
-                  disabled
-                  className="w-full max-w-xs px-6 py-3 bg-gray-300 text-gray-600 rounded-lg cursor-not-allowed 
-                 transition-colors shadow-inner"
-                >
-                  Apply Now
-                </button>
-              )}
-            </div>
-
+        <div className=" py-2">
+          <div className="bg-gray-100 rounded-xl shadow-sm overflow-hidden p-5">
             {/* Job header */}
             <div className="p-6 sm:p-8 border-b border-gray-100">
               <div className="flex flex-col sm:flex-row justify-between">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                     {job.title}
+                    <span
+                      className={`inline-flex ml-5 items-center px-3  rounded-full text-sm font-medium ${
+                        job.status === 'active'
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-gray-100 text-gray-800'
+                      }`}
+                    >
+                      {job.status.charAt(0).toUpperCase() + job.status.slice(1)}
+                    </span>
                   </h1>
                   <p className="text-lg text-gray-600 mb-4">
                     {job.department} • {job.location}
@@ -160,29 +148,38 @@ const JobDetailsPage = () => {
                 </div>
 
                 <div className="flex items-center sm:block sm:text-right">
-                  <span
-                    className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                      job.status === 'active'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-gray-100 text-gray-800'
-                    }`}
-                  >
-                    {job.status.charAt(0).toUpperCase() + job.status.slice(1)}
-                  </span>
+                  {job.status === 'active' ? (
+                    <Link to={`/apply/${job._id}`}>
+                      <button
+                        className="w-full max-w-xs px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white 
+                         rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-colors shadow-md mt-6 cursor-pointer"
+                      >
+                        Apply Now
+                      </button>
+                    </Link>
+                  ) : (
+                    <button
+                      disabled
+                      className="w-full max-w-xs px-6 py-3 bg-gray-300 text-gray-600 rounded-lg cursor-not-allowed 
+                 transition-colors shadow-inner"
+                    >
+                      Apply Now
+                    </button>
+                  )}
                 </div>
               </div>
 
               {/* Meta information */}
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="flex items-center">
+                <div className="flex items-center rounded-b-md shadow-sm bg-gray-100 p-3 mr-20">
                   <FiBriefcase className="h-5 w-5 text-gray-400 mr-2" />
                   <span className="text-gray-700">{job.type}</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center  rounded-b-md shadow-sm bg-gray-100 p-3 mr-20">
                   {/* <FiDollarSign className="h-5 w-5 text-gray-400 mr-2" /> */}
                   <span className="text-gray-700">{job.salary}</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center  rounded-b-md shadow-sm bg-gray-100 p-3 mr-20">
                   <FiClock className="h-5 w-5 text-gray-400 mr-2" />
                   <span className="text-gray-700">
                     {formatPostedDate(job.posted)}
@@ -194,21 +191,22 @@ const JobDetailsPage = () => {
             {/* Job content */}
             <div className="p-6 sm:p-8">
               <div className="prose max-w-none">
-                {/* Job Description */}
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                  Job Description
-                </h2>
-                <p className="text-gray-700 mb-6">{job.description}</p>
-
                 {/* Skills Sectino */}
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">
                   Skills Requirements
                 </h2>
                 <ul className="list-disc pl-5 space-y-2 mb-6">
                   {job.skills.map((skill, index) => (
-                    <li key={index} className="text-gray-700">
+                    <span
+                      key={index}
+                      className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-sm font-medium bg-gray-500 text-white ml-5"
+                    >
                       {skill}
-                    </li>
+                    </span>
+                    // <li key={index} className="text-gray-700">
+
+                    //   {skill}
+                    // </li>
                   ))}
                 </ul>
 

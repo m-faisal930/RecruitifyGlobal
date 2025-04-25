@@ -121,7 +121,7 @@ export default function AboutSection() {
           <span className="inline-block text-xs uppercase font-work font-medium text-buttons border-b-2 border-buttons pb-1">
             About us
           </span>
-          <h2 className="font-work text-3xl sm:text-4xl md:text-5xl font-bold text-dark mt-4 mb-6">
+          <h2 className="font-work text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-6">
             About <span className="text-buttons">Recruitify Global</span>
           </h2>
           <p className="text-gray-700 mb-4">
@@ -136,7 +136,7 @@ export default function AboutSection() {
             the perfect opportunity faster than ever.
           </p>
           <Link
-            to={'/about'}
+            to={''}
             class="relative inline-block px-4 py-2 font-medium group mt-2"
           >
             <span class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>

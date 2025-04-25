@@ -193,9 +193,9 @@ const ApplicationDetails = () => {
             {/* Contact information */}
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-2">
+                <h2 className="text-2xl font-medium text-gray-500 mt-6 mb-2">
                   Contact Information
-                </h3>
+                </h2>
                 <div className="space-y-2">
                   <div className="flex items-center text-sm text-gray-700">
                     <FaEnvelope className="mr-2 text-gray-400" />
@@ -234,12 +234,23 @@ const ApplicationDetails = () => {
               {/* Education */}
               {application.education && (
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-2">
+                  <h2 className="text-2xl font-medium text-gray-500 mt-6 mb-2">
                     Education
-                  </h3>
+                    <FaGraduationCap className="ml-2 text-gray-400 inline-block" />
+                  </h2>
                   <p className="text-sm text-gray-700 flex items-center">
-                    <FaGraduationCap className="mr-2 text-gray-400" />
-                    {application.education}
+                    {application.education.map((edu) => (
+                      <div key={edu._id} className="mb-4">
+                        <h4 className="font-semibold">
+                          {edu.degree} in {edu.field}
+                        </h4>
+                        <p className="text-sm text-gray-600">{edu.school}</p>
+                        <p className="text-xs text-gray-500">
+                          {new Date(edu.start).toLocaleDateString()} –{' '}
+                          {new Date(edu.end).toLocaleDateString()}
+                        </p>
+                      </div>
+                    ))}
                   </p>
                 </div>
               )}
@@ -247,12 +258,26 @@ const ApplicationDetails = () => {
               {/* Experience */}
               {application.experience && (
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-2">
-                    Experience
-                  </h3>
+                  <h2 className="text-2xl font-medium text-gray-500 mt-6 mb-2">
+                    Experience{' '}
+                    <FaUserTie className="ml-2 text-gray-400 inline-block" />
+                  </h2>
                   <p className="text-sm text-gray-700 flex items-center">
-                    <FaUserTie className="mr-2 text-gray-400" />
-                    {application.experience}
+                    {application.experience.map((exp) => (
+                      <div key={exp._id} className="mb-4">
+                        <h4 className="font-semibold">
+                          {exp.title} at {exp.company}
+                        </h4>
+                        <p className="text-sm text-gray-600">{exp.industry}</p>
+                        <p className="text-xs text-gray-500">
+                          {new Date(exp.start).toLocaleDateString()} –{' '}
+                          {new Date(exp.end).toLocaleDateString()}
+                        </p>
+                        {exp.summary && (
+                          <p className="mt-1 text-sm">{exp.summary}</p>
+                        )}
+                      </div>
+                    ))}
                   </p>
                 </div>
               )}
@@ -260,9 +285,9 @@ const ApplicationDetails = () => {
               {/* Skills */}
               {application.skills && application.skills.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-medium text-gray-500 mb-2">
+                  <h2 className="text-2xl font-medium text-gray-500 mt-6 mb-2">
                     Skills
-                  </h3>
+                  </h2>
                   <div className="flex flex-wrap gap-2">
                     {application.skills.map((skill, index) => (
                       <span

@@ -202,10 +202,22 @@
 
 // src/components/Hero.jsx
 // import React from 'react';
-import HeroIllustration from '../assets/HeroIllustration1.png';
+import HeroIllustration from '../assets/HeroIllustration2.png';
+import { useState, useEffect } from 'react';
+
 // import GreenAsterisk from '../assets/green-asterisk.svg';
 
 const HeroSection = () => {
+    const words = ['Dream', 'Desired','Perfect', 'Ideal'];
+    const [currentWord, setCurrentWord] = useState(0);
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCurrentWord((prev) => (prev + 1) % words.length);
+      }, 2000);
+      return () => clearInterval(interval);
+    }, []);
+  
   const categories = [
     'Graphic Design',
     'Administration',
@@ -213,22 +225,38 @@ const HeroSection = () => {
     'Marketing',
   ];
 
+
   return (
     <>
-      <section id='home' className="bg-gray-50 font-work px-4 sm:px-6 lg:px-8 xl:px-20">
+      <section
+        id="home"
+        className="bg-gray-50 font-work px-4 sm:px-6 lg:px-8 xl:px-20"
+      >
         <div className="max-w-screen-xl mx-auto py-8">
           {/* HERO CONTENT */}
           <div className="flex flex-col-reverse items-center md:flex-row md:justify-between mt-5">
             {/* Left text */}
             <div className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left text-gray-800">
-              <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4 inline-flex items-center justify-center md:justify-start">
+              {/* <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4 inline-flex items-center justify-center md:justify-start">
                 <span>
-                  Apply Effortlessly to
+                  Apply <span className="text-[#0041A8]">Effortlessly</span> to
                   <br />
                   Your Desired Jobs
                 </span>
-                {/* <img src={GreenAsterisk} alt="" className="ml-3 w-8 h-8" /> */}
+              </h1> */}
+
+              <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4 inline-flex items-center justify-center md:justify-start">
+                <span>
+                  Apply <span className="">Effortlessly</span> to
+                  <br />
+                  Your{' '}
+                  <span className="text-[#0041A8] transition-all duration-500">
+                    {words[currentWord]}
+                  </span>{' '}
+                  Jobs
+                </span>
               </h1>
+
               <p className="text-lg text-gray-700 mb-6">
                 Start now and prepare yourself to get a new journey in a
                 <br />

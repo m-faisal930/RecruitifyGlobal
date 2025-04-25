@@ -52,7 +52,7 @@ export default function HowItWorksSection() {
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="font-work text-4xl sm:text-5xl font-bold text-dark">
+          <h2 className="font-work text-4xl sm:text-5xl font-bold text-gray-900">
             How It <span className="text-buttons">Works</span>
           </h2>
           <p className="mt-4 text-lg text-gray-700 max-w-2xl mx-auto">

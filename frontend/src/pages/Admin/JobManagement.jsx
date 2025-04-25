@@ -385,7 +385,7 @@ const salaryPattern = /^PKR \d{2,3}k - \d{2,3}k$/;
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
+                    {/* <div>
                       <label className="block text-sm font-medium text-gray-700  mb-1">
                         Location *
                       </label>
@@ -406,6 +406,27 @@ const salaryPattern = /^PKR \d{2,3}k - \d{2,3}k$/;
                           required
                         />
                       </div>
+                    </div> */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700  mb-1">
+                        Location *
+                      </label>
+                      <select
+                        className="block w-full border border-gray-300  rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        value={currentJob.location}
+                        onChange={(e) =>
+                          setCurrentJob({
+                            ...currentJob,
+                            location: e.target.value,
+                          })
+                        }
+                        required
+                      >
+                        <option value="Lahore">Lahore</option>
+                        <option value="Islamabad">Islamabad</option>
+                        <option value="Karachi">Karachi</option>
+                        <option value="Remote">Remote</option>
+                      </select>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700  mb-1">
@@ -477,7 +498,10 @@ const salaryPattern = /^PKR \d{2,3}k - \d{2,3}k$/;
                         className="block w-full border border-gray-300  rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                         value={currentJob.experience}
                         onChange={(e) =>
-                          setCurrentJob({ ...currentJob, experience: e.target.value })
+                          setCurrentJob({
+                            ...currentJob,
+                            experience: e.target.value,
+                          })
                         }
                         required
                       >
