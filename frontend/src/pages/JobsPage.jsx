@@ -29,7 +29,7 @@ const JobsPage = () => {
 
   // Transform job data to match your existing structure
   const transformJobData = (job) => ({
-    id: job._id,
+    _id: job._id,
     status: job.status,
     title: job.title,
     company: job.department, // Using department as company
@@ -77,7 +77,7 @@ const JobsPage = () => {
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-// console.log(jobs)
+// console.log(currentJobs);
   return (
     <>
       {/* <Navbar /> */}
@@ -234,6 +234,7 @@ const JobsPage = () => {
                         search: '',
                         location: '',
                         type: '',
+                        experience: '',
                         salary: '',
                       })
                     }
@@ -246,6 +247,7 @@ const JobsPage = () => {
                 <>
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {currentJobs.map((job) => (
+                      // console.log("current job is", job),
                       <JobCard key={job.id} job={job} />
                     ))}
                   </div>

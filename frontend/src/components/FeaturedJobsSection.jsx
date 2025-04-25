@@ -47,7 +47,7 @@ export default function FeaturedJobsSection() {
     if (diffDays === 1) return '1 day ago'
     return `${diffDays} days ago`
   }
-
+// console.log(topJobs)
   return (
     <section id="jobs" className="bg-light py-12">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,8 +69,9 @@ export default function FeaturedJobsSection() {
             {topJobs.map((job) => {
               const postedLabel = getPostedLabel(job.posted)
               job.postedDate = postedLabel; // Add the formatted date to the job object for display
+              console.log("job is ", job);
               return (
-                <div key={job._id || job.id} className="flex flex-col">
+                <div key={job._id} className="flex flex-col">
                   <JobCard job={job} />
                 </div>
               )

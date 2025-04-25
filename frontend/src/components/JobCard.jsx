@@ -23,7 +23,7 @@ import { Link } from 'react-router-dom'
  * @param {{ job: Job }} props
  */
 const JobCard = ({ job }) => {
-  console.log(job);
+  const id = job._id;
  
   const {
     title,
@@ -39,7 +39,7 @@ const JobCard = ({ job }) => {
   return (
     <div className="font-work group flex flex-col bg-gray-50 rounded-2xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02] overflow-hidden">
       {job.status === 'active' ? (
-        <Link to={`/jobs/${job.id}`}>
+        <Link to={`/jobs/${id}`}>
           {/* SKILL TAGS */}
           <div className="px-6 py-4 bg-lightdiv flex flex-wrap gap-2">
             {skills.slice(0, 4).map((skill) => (
