@@ -160,7 +160,7 @@ const ApplicationDetails = () => {
                 {application.lastName.charAt(0)}
               </div>
               <h2 className="text-xl font-bold text-gray-900">
-                {application.firstName} + {application.lastName}
+                {application.firstName}  {application.lastName}
               </h2>
               <p className="text-gray-500">{application.jobTitle}</p>
             </div>
