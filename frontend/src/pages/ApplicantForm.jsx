@@ -198,11 +198,14 @@ const ApplicantForm = () => {
       // formDataToSend.append('job', id); // Assuming you want to send the job ID
 
 
-      const response = await fetch('http://localhost:5000/api/applicants', {
-        method: 'POST',
-        body: formDataToSend,
-        // Don't set Content-Type header - let the browser set it with the correct boundary
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/applicants`,
+        {
+          method: 'POST',
+          body: formDataToSend,
+          // Don't set Content-Type header - let the browser set it with the correct boundary
+        }
+      );
       console.log(response);
 
       if (!response.ok) {

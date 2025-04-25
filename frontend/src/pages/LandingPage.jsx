@@ -42,8 +42,8 @@ export default function LandingPage() {
         <AboutSection />
         <div className="bg-white">
           {/* <AboutSection /> */}
-          <ContactSection />
           <HowItWorksSection />
+          <ContactSection />
         </div>
       </div>
       <Footer />

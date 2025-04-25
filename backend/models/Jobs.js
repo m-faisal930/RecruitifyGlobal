@@ -8,6 +8,16 @@ const jobSchema = new mongoose.Schema(
       trim: true,
       maxlength: [100, 'Job title cannot exceed 100 characters'],
     },
+    skills:{
+      type: [String],
+      required: [true, 'Skills are required'],
+      validate: {
+        validator: function (v) {
+          return v.length > 0;
+        },
+        message: 'At least one skill is required',
+      },
+    },
     department: {
       type: String,
       required: [true, 'Department is required'],
@@ -48,6 +58,12 @@ const jobSchema = new mongoose.Schema(
     description: {
       type: String,
       required: [true, 'Job description is required'],
+    },
+    experience: {
+      type: String,
+      required: [true, 'Experience level is required'],
+      enum: ['Entry', 'Mid', 'Senior'],
+      default: 'Entry',
     },
     requirements: {
       type: [String],
