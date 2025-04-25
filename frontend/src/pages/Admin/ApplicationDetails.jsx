@@ -36,7 +36,8 @@ const ApplicationDetails = () => {
         );
         // console.log(response.data);
         setApplication(response.data.data);
-        
+        // console.log(application);
+
         setNotes(response.data.data.notes || '');
         setLoading(false);
         // console.log(application)
@@ -79,18 +80,25 @@ const ApplicationDetails = () => {
     }
   };
 
-  const downloadFile = async (fileType) => {
-    try {
-      window.open(
-        `${
-          import.meta.env.VITE_API_URL
-        }/api/applicants/${id}/download/${fileType}`,
-        '_blank'
-      );
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to download file');
-    }
-  };
+  // somewhere in your React component
+  // assume you’ve fetched `applicant` from your API and it has:
+  //   applicant.resumeUrl
+  //   applicant.coverLetterUrl
+
+
+
+  // const downloadFile = async (fileType) => {
+  //   try {
+  //     window.open(
+  //       `${
+  //         import.meta.env.VITE_API_URL
+  //       }/api/applicants/${id}/download/${fileType}`,
+  //       '_blank'
+  //     );
+  //   } catch (err) {
+  //     setError(err.response?.data?.message || 'Failed to download file');
+  //   }
+  // };
 
   if (loading) {
     return (
@@ -115,6 +123,23 @@ const ApplicationDetails = () => {
       </div>
     );
   }
+
+    const downloadFile = (fileType) => {
+      try {
+        // pick the correct URL off your applicant
+        const url =
+          fileType === 'resume' ? application.resume : application.coverLetter;
+
+        if (!url) {
+          throw new Error('No file available to download.');
+        }
+
+        // open the Cloudinary URL directly in a new tab
+        window.open(url, '_blank');
+      } catch (err) {
+        setError(err.message || 'Failed to download file');
+      }
+    };
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
@@ -160,7 +185,7 @@ const ApplicationDetails = () => {
                 {application.lastName.charAt(0)}
               </div>
               <h2 className="text-xl font-bold text-gray-900">
-                {application.firstName}  {application.lastName}
+                {application.firstName} {application.lastName}
               </h2>
               <p className="text-gray-500">{application.jobTitle}</p>
             </div>
@@ -270,7 +295,6 @@ const ApplicationDetails = () => {
         {/* Right column - Application details */}
         <div className="lg:col-span-2">
           <div className="space-y-6">
-
             {/* Documents */}
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
