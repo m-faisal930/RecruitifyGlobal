@@ -86,6 +86,19 @@ const AdminLayout = () => {
                 Applicants
               </Link>
             </li>
+            <li>
+              <Link
+                to="/admin/recruiters"
+                className={`flex items-center px-4 py-3 rounded-lg ${
+                  isActive('/admin/recruiters')
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                }`}
+              >
+                <FaUsers className="mr-3" />
+                Recruiters
+              </Link>
+            </li>
 
           </ul>
           <div className="mt-8 pt-4 border-t border-gray-200">

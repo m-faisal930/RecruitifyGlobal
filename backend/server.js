@@ -7,6 +7,7 @@ const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./config/errorHandler');
 const { requireAdmin } = require('./middlewares/auth');
 const authRoutes = require('./routes/auth');
+const recruiterRoutes = require('./routes/recruiterRoutes');
 const Job = require('./models/Jobs');
 const Applicant = require('./models/Applicant');
 
@@ -42,6 +43,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/applicants', applicants);
 // Mount routers
 app.use('/api/jobs', jobs);
+app.use('/api/recruiters', recruiterRoutes);
 
 
 
@@ -139,6 +141,7 @@ app.get('/api/admin/activities', async (req, res) => {
         time: a.createdAt.toISOString(),
       })
     );
+
     jobs.forEach((j) =>
       activities.push({
         id: j._id,

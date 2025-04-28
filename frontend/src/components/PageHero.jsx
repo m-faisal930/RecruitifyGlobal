@@ -170,29 +170,19 @@ import { ChevronRight, Briefcase, MapPin, Calendar, Users } from 'lucide-react';
  */
 export default function PageHero({ breadcrumbs }) {
   return (
-    <section id="page-hero" className="relative bg-light py-10 overflow-hidden">
-      {/* ...animated blobs & icons unchanged... */}
-      {/* <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-tr from-buttons to-highlight rounded-full opacity-30 blur-3xl animate-blob" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-highlight to-buttons rounded-full opacity-30 blur-3xl animate-blob-delay-2" />
-      <div className="absolute top-1/2 right-1/4 w-48 h-48 bg-gradient-to-bl from-dark to-light rounded-full opacity-20 blur-2xl animate-blob-delay-4" />
+    <section id="page-hero" className="relative bg-gray-50 py-15 overflow-hidden">
 
-      {/* Colorful icon accents */}
-      {/* <Briefcase className="absolute top-16 left-16 w-12 h-12 text-buttons opacity-60 animate-spin-slow" />
-      <MapPin className="absolute top-28 right-20 w-16 h-16 text-highlight opacity-50 animate-pulse-slow" />
-      <Calendar className="absolute bottom-24 left-32 w-14 h-14 text-buttons opacity-50 animate-spin-slow" />
-      <Users className="absolute bottom-10 right-10 w-20 h-20 text-highlight opacity-40 animate-pulse-delay-3" />  */}
-
-      <div className="absolute top-0 left-0 w-72 h-72 bg-gradient-to-tr from-buttons to-highlight rounded-full opacity-30 blur-3xl animate-blob" />
+      {/* <div className="absolute top-0 left-0 w-72 h-72 bg-gradient-to-tr from-buttons to-highlight rounded-full opacity-30 blur-3xl animate-blob" />
       <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-br from-highlight to-buttons rounded-full opacity-30 blur-3xl animate-blob-delay-2" />
-      <div className="absolute top-1/2 right-1/3 w-40 h-40 bg-gradient-to-bl from-dark to-light rounded-full opacity-20 blur-2xl animate-blob-delay-4" />
+      <div className="absolute top-1/2 right-1/3 w-40 h-40 bg-gradient-to-bl from-dark to-light rounded-full opacity-20 blur-2xl animate-blob-delay-4" /> */}
 
       {/* Colorful icon accents */}
-      <Briefcase className="absolute top-12 left-12 w-8 h-8 text-[#0041A8] opacity-50 animate-spin-slow" />
+      {/* <Briefcase className="absolute top-12 left-12 w-8 h-8 text-[#0041A8] opacity-50 animate-spin-slow" />
       <MapPin className="absolute top-24 right-16 w-6 h-6 text-[#5F8DB8] opacity-40 animate-pulse-slow" />
       <Calendar className="absolute bottom-20 left-28 w-8 h-8 text-[#0041A8] opacity-50 animate-spin-slow" />
-      <Users className="absolute bottom-8 right-12 w-10 h-10 text-[#5F8DB8] opacity-35 animate-pulse-delay-3" />
+      <Users className="absolute bottom-8 right-12 w-10 h-10 text-[#5F8DB8] opacity-35 animate-pulse-delay-3" /> */}
 
-      <div className="relative z-10 flex justify-center">
+      <div className="relative z-10 flex justify-start md:pl-25 pt-10">
         {/* Flowbite‐style breadcrumb */}
         <nav className="flex" aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">

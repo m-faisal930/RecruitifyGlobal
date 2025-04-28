@@ -74,6 +74,7 @@ export default function AdminDashboard() {
         });
 
         setRecentActivities(actsRes.data.activities);
+        // console.log('Recent Activities:', recentActivities);
       } catch (err) {
         console.error('Error fetching dashboard data:', err);
       }

@@ -12,6 +12,7 @@ import JobCard from '../components/JobCard';
 import { useJobs } from '../context/JobContext';
 import PageHero from '../components/PageHero';
 import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 
 // Jobs Listing Page
@@ -89,7 +90,7 @@ const JobsPage = () => {
           ]}
         />
       </div>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className="min-h-screen bg-gray-100 pt-5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold sm:text-4xl">

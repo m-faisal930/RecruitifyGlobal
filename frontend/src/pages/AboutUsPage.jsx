@@ -7,24 +7,28 @@ import {
 } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import PageHero from '../components/PageHero';
+import StatsSection from '../components/StatsSection';
+import Team from '../components/Team';
 
 const AboutUsPage = () => {
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div className="bg-white">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-r from-blue-50 to-indigo-50 py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
-              About <span className="text-blue-600">JobPortal</span>
-            </h1>
-            <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-              Connecting talent with opportunity across Pakistan through
-              innovative technology
-            </p>
-          </div>
-        </section>
+        <PageHero
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'About', href: '/about' },
+          ]}
+        />
+
+        {/* Stats Section */}
+        <StatsSection />
+
+        {/* Team Section */}
+        <Team />
 
         {/* Our Story */}
         <section className="py-16">
@@ -119,78 +123,6 @@ const AboutUsPage = () => {
                     {item.title}
                   </h3>
                   <p className="mt-2 text-gray-600">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Stats Section */}
-        <section className="py-16 bg-blue-600 text-white">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-              {[
-                { number: '25,000+', label: 'Jobs Filled' },
-                { number: '5,000+', label: 'Companies' },
-                { number: '85%', label: 'Response Rate' },
-                { number: '24h', label: 'Avg. First Response' },
-              ].map((stat, index) => (
-                <div key={index} className="text-center">
-                  <p className="text-4xl font-bold sm:text-5xl">
-                    {stat.number}
-                  </p>
-                  <p className="mt-2 text-lg">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Team Section */}
-        <section className="py-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-gray-900">
-                Meet Our Leadership
-              </h2>
-              <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-                The passionate team driving JobPortal's success
-              </p>
-            </div>
-
-            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  name: 'Ali Khan',
-                  role: 'Founder & CEO',
-                  bio: 'Former HR executive with 10+ years in talent acquisition',
-                  img: 'https://randomuser.me/api/portraits/men/32.jpg',
-                },
-                {
-                  name: 'Fatima Ahmed',
-                  role: 'CTO',
-                  bio: 'Tech entrepreneur focused on scalable solutions',
-                  img: 'https://randomuser.me/api/portraits/women/44.jpg',
-                },
-                {
-                  name: 'Usman Malik',
-                  role: 'Head of Operations',
-                  bio: "Expert in Pakistan's job market dynamics",
-                  img: 'https://randomuser.me/api/portraits/men/75.jpg',
-                },
-              ].map((member, index) => (
-                <div key={index} className="text-center">
-                  <img
-                    className="mx-auto h-40 w-40 rounded-full object-cover border-4 border-white shadow-md"
-                    src={member.img}
-                    alt={member.name}
-                    loading="lazy"
-                  />
-                  <h3 className="mt-6 text-xl font-semibold text-gray-900">
-                    {member.name}
-                  </h3>
-                  <p className="text-blue-600">{member.role}</p>
-                  <p className="mt-2 text-gray-600">{member.bio}</p>
                 </div>
               ))}
             </div>

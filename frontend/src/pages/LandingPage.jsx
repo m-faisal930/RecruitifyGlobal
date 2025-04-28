@@ -9,6 +9,11 @@ import Footer from '../components/Footer'
 import ViewmoreButton from '../components/ViewmoreButton'
 import FeaturedJobsSection from '../components/FeaturedJobsSection'
 import HowItWorksSection from '../components/HowItWorksSection'
+import StatsSection from '../components/StatsSection'
+import ServicesSection from '../components/Services'
+import Team from '../components/Team'
+import Testimonial from '../components/Testimonial'
+import TechStacks from '../components/TechStacks'
 
 export default function LandingPage() {
     const job =           {
@@ -25,26 +30,19 @@ export default function LandingPage() {
     <div>
       <Navbar />
       <HeroSection />
-      {/* <JobSearchFilters /> */}
-      <FeaturedJobsSection />
 
-      {/* <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6 mx-7">
-        <JobCard job={job} />
-        <JobCard job={job} />
-        <JobCard job={job} />
-        <JobCard job={job} />
-      </div> */}
-      <div className="flex justify-center mt-6">
-        <ViewmoreButton />
-      </div>
-      <div className="container mx-auto px-4 py-12">
+
+      <div className="">
         {/* Job listings grid */}
         <AboutSection />
-        <div className="bg-white">
-          {/* <AboutSection /> */}
+        <StatsSection />
+        <ServicesSection />
+        <Team />
+        <Testimonial />
+        <TechStacks />
           <HowItWorksSection />
           <ContactSection />
-        </div>
+
       </div>
       <Footer />
     </div>

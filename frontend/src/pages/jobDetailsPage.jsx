@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/PageHero';
 
+
 const JobDetailsPage = () => {
   const { id } = useParams();
   const { jobs } = useJobs();
@@ -113,7 +114,7 @@ const JobDetailsPage = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className="min-h-screen bg-gray-50 pt-5">
         <PageHero
           breadcrumbs={[
