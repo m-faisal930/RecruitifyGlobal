@@ -452,6 +452,7 @@ import { useNavigate } from 'react-router-dom'
 
 const navItems = [
   { name: 'Home', href: '/' },
+  { name: 'About Us', href: '/about' },
   { 
     name: 'For Business', 
     href: '',
@@ -460,10 +461,9 @@ const navItems = [
       { name: 'Specialization', href: '/specialization' }
     ]
   },
-  { name: 'Job Opportunities', href: '/jobs' },
   { name: 'For Recruiters', href: '/recruiters' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Job Opportunities', href: '/jobs' },
+  { name: 'Contact Us', href: '/contact' },
 ]
 
 export default function Navbar() {

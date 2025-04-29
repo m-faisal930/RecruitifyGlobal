@@ -540,7 +540,7 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* CATEGORIES */}
+        {/* CATEGORIES
         <motion.div className="mt-12 text-center" variants={item}>
           <motion.p
             className="text-lg mb-4"
@@ -566,7 +566,7 @@ const HeroSection = () => {
               </motion.button>
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </motion.section>
   );

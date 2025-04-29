@@ -135,43 +135,97 @@ export default function RecruitersPage() {
           className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
         >
           {/* Benefits Section */}
-          <motion.div variants={item} className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Why Partner With Us?
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: 'Access Top Talent',
-                  desc: 'Connect with qualified candidates actively seeking new opportunities',
-                  icon: '👥',
-                },
-                {
-                  title: 'Streamlined Process',
-                  desc: 'Our platform simplifies recruitment with powerful tools',
-                  icon: '⚡',
-                },
-                {
-                  title: 'Cost Effective',
-                  desc: 'Reduce hiring costs with our competitive pricing',
-                  icon: '💰',
-                },
-              ].map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-blue-200 transition-all"
-                  whileHover={{
-                    y: -5,
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.05)',
-                  }}
-                >
-                  <div className="text-4xl mb-4">{benefit.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-600">{benefit.desc}</p>
-                </motion.div>
-              ))}
+          <motion.div
+            variants={item}
+            className="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8"
+          >
+            {/* Background elements */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute -top-20 -left-20 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+              <div className="absolute -bottom-40 -right-20 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+              <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+            </div>
+
+            <div className="relative max-w-7xl mx-auto">
+              {/* Main heading */}
+              <motion.h2
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-8 text-center leading-tight"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                Partner with us to{' '}
+                <span className="whitespace-nowrap">Connect Globally</span>,
+                <br />
+                Grow Your Network, and Maximize
+                <br />
+                Your{' '}
+                <span className="underline decoration-wavy decoration-blue-400">
+                  Earning Potential
+                </span>{' '}
+                Like Never Before!
+              </motion.h2>
+
+              {/* Subheading */}
+              <motion.p
+                className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto text-center mb-16 font-light"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                We unlock greater opportunities for independent recruiters by
+                connecting them with top global clients and helping them grow
+                their business worldwide.
+              </motion.p>
+
+              {/* Benefits grid */}
+              <div className="grid md:grid-cols-3 gap-8 mt-16">
+                {[
+                  {
+                    title: 'Global Reach',
+                    desc: 'Access to international clients and candidates across multiple industries',
+                    icon: '🌍',
+                    color: 'from-blue-500 to-cyan-500',
+                  },
+                  {
+                    title: 'Network Growth',
+                    desc: 'Expand your professional connections with our exclusive community',
+                    icon: '📈',
+                    color: 'from-purple-500 to-fuchsia-500',
+                  },
+                  {
+                    title: 'Maximized Earnings',
+                    desc: 'Higher commissions and better deals through our premium network',
+                    icon: '💎',
+                    color: 'from-amber-500 to-pink-500',
+                  },
+                ].map((benefit, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-gray-200/50 hover:border-transparent transition-all relative overflow-hidden group"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 * index, duration: 0.5 }}
+                    whileHover={{
+                      y: -10,
+                      boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)',
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300 z-0" />
+                    <div className="relative z-10">
+                      <div
+                        className={`text-5xl mb-6 inline-block p-4 rounded-xl bg-gradient-to-br ${benefit.color} text-white`}
+                      >
+                        {benefit.icon}
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4 text-gray-900">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-gray-600 text-lg">{benefit.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -202,30 +256,7 @@ export default function RecruitersPage() {
             <h3 className="text-2xl font-semibold text-center mb-8">
               What Our Partners Say
             </h3>
-            {/* <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                quote: "We reduced our time-to-hire by 40% using this platform. The quality of candidates is outstanding.",
-                name: "Sarah Johnson",
-                company: "Tech Innovations Inc."
-              },
-              {
-                quote: "The recruitment process has never been easier. We've filled 15 positions in just 3 months.",
-                name: "Michael Chen",
-                company: "Global Solutions"
-              }
-            ].map((testimonial, index) => (
-              <motion.div 
-                key={index}
-                className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
-                whileHover={{ y: -3 }}
-              >
-                <p className="text-gray-700 italic mb-4">"{testimonial.quote}"</p>
-                <p className="font-semibold">{testimonial.name}</p>
-                <p className="text-gray-600 text-sm">{testimonial.company}</p>
-              </motion.div>
-            ))}
-          </div> */}
+
             <Testimonial />
           </motion.div>
         </motion.section>
@@ -275,7 +306,7 @@ export default function RecruitersPage() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Company Name *
+                        Full Name *
                       </label>
                       <input
                         type="text"

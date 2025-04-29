@@ -129,28 +129,7 @@ const AboutUsPage = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 bg-gray-50">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-gray-900">
-              Ready to join Pakistan's leading job platform?
-            </h2>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <a
-                href="/jobs"
-                className="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700"
-              >
-                Browse Jobs
-              </a>
-              <a
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-base font-medium text-blue-600 ring-1 ring-inset ring-blue-600 hover:bg-gray-50"
-              >
-                Contact Us
-              </a>
-            </div>
-          </div>
-        </section>
+
       </div>
       <Footer />
     </>
