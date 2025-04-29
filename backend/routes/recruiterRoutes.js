@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const recruiterController = require('../controllers/recruiterControllers');
-const recruiterValidator = require('../middlewares/Validators/recruiterValidator');
+const recruiterValidator = require('../middlewares/validators/recruiterValidator')
 const upload = require('../middlewares/multer'); // Import multer configuration
 
 // Register new recruiter
