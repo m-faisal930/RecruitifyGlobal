@@ -1,38 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const {
-  registerRecruiter,
-  getRecruiters,
-  getRecruiter,
-  updateRecruiter,
-  deleteRecruiter,
-  updateRecruiterStatus,
-  addRecruiterNote,
-} = require('../controllers/recruiterControllers');
-// const { protect, authorize } = require('../middleware/auth');
-const { check } = require('express-validator');
+const recruiterController = require('../controllers/recruiterControllers');
+const recruiterValidator = require('../middlewares/Validators/recruiterValidator');
+const upload = require('../middlewares/multer'); // Import multer configuration
 
-// Public routes
+// Register new recruiter
 router.post(
   '/register',
-  [
-    check('companyName', 'Company name is required').not().isEmpty(),
-    check('contactPerson', 'Contact person is required').not().isEmpty(),
-    check('email', 'Please include a valid email').isEmail(),
-    check('termsAgreed', 'You must agree to the terms').isBoolean(),
-  ],
-  registerRecruiter
+  upload.single('cv'), // Handle single file upload with field name 'cv'
+  recruiterValidator.validateRecruiterRegistration,
+  recruiterController.registerRecruiter
 );
 
-// Admin protected routes
-// router.use(protect);
-// router.use(authorize('admin'));
+// Get all recruiters (for admin purposes)
+router.get('/', recruiterController.getRecruiters);
+// Get a single recruiter by ID (for admin purposes)
+router.get('/:id', recruiterController.getRescruiterbyId);   
+// Update recruiter details (for admin purposes)
 
-router.get('/', getRecruiters);
-router.get('/:id', getRecruiter);
-router.put('/:id', updateRecruiter);
-router.delete('/:id', deleteRecruiter);
-router.put('/status/:id', updateRecruiterStatus);
-router.patch('/:id/notes', addRecruiterNote);
+// Delete recruiter (for admin purposes)
+router.delete('/:id', recruiterController.deleteRecruiter);
 
 module.exports = router;

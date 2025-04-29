@@ -2,45 +2,32 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   FaSearch,
-  FaBuilding,
-  FaCheck,
-  FaTimes,
   FaEnvelope,
   FaPhone,
   FaLinkedin,
-  FaGlobe,
-  FaUserTie,
-  FaRegClock,
-  FaExternalLinkAlt,
+  FaUser,
+  FaFilePdf,
+  FaGlobeAmericas,
 } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const RecruitersManagement = () => {
   const navigate = useNavigate();
   const [recruiters, setRecruiters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState('all');
-  const [selectedIndustry, setSelectedIndustry] = useState('all');
-  const [notes, setNotes] = useState('');
   const [selectedRecruiter, setSelectedRecruiter] = useState(null);
-  const [industries, setIndustries] = useState([]);
 
-  // Fetch recruiters and industries
+  // Fetch recruiters
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           `${import.meta.env.VITE_API_URL}/api/recruiters`
         );
-        // console.log(response.data.data);
+        console.log(response.data.data);
         setRecruiters(response.data.data);
-
-        // Extract unique industries
-        const uniqueIndustries = [
-          ...new Set(response.data.data.map((r) => r.industry)),
-        ];
-        setIndustries(uniqueIndustries);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -50,75 +37,20 @@ const RecruitersManagement = () => {
     fetchData();
   }, []);
 
-  const updateStatus = async (id, newStatus) => {
-    try {
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/recruiters/status/${id}`,
-        { status: newStatus }
-      );
-
-      setRecruiters(
-        recruiters.map((recruiter) =>
-          recruiter._id === id ? { ...recruiter, status: newStatus } : recruiter
-        )
-      );
-
-      if (selectedRecruiter?._id === id) {
-        setSelectedRecruiter({ ...selectedRecruiter, status: newStatus });
-      }
-    } catch (error) {
-      console.error('Error updating status:', error);
-    }
-  };
-
-  const saveNotes = async (id) => {
-    try {
-      await axios.patch(
-        `${import.meta.env.VITE_API_URL}/api/recruiters/${id}`,
-        { notes }
-      );
-
-      setRecruiters(
-        recruiters.map((recruiter) =>
-          recruiter._id === id ? { ...recruiter, notes } : recruiter
-        )
-      );
-
-      if (selectedRecruiter?._id === id) {
-        setSelectedRecruiter({ ...selectedRecruiter, notes });
-      }
-    } catch (error) {
-      console.error('Error saving notes:', error);
-    }
-  };
-
   const viewRecruiterDetails = (recruiter) => {
+    // console.log("selected recruiter", recruiter);
     setSelectedRecruiter(recruiter);
-    setNotes(recruiter.notes || '');
-    navigate(`/admin/recruiters/${recruiter._id}`);
+    // navigate(`/admin/recruiters/${recruiter._id}`);
   };
 
   const filteredRecruiters = recruiters.filter((recruiter) => {
-    const matchesSearch =
-      recruiter.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      recruiter.contactPerson
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
-      recruiter.email.toLowerCase().includes(searchTerm.toLowerCase());
+    // console.log(recruiter);
+    return (
 
-    const matchesStatus =
-      selectedStatus === 'all' || recruiter.status === selectedStatus;
-
-    const matchesIndustry =
-      selectedIndustry === 'all' || recruiter.industry === selectedIndustry;
-
-    return matchesSearch && matchesStatus && matchesIndustry;
+      recruiter.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      recruiter.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   });
-
-  const statusCounts = recruiters.reduce((acc, recruiter) => {
-    acc[recruiter.status] = (acc[recruiter.status] || 0) + 1;
-    return acc;
-  }, {});
 
   if (loading) {
     return (
@@ -147,138 +79,41 @@ const RecruitersManagement = () => {
   }
 
   return (
-    <div>
+    <div className="p-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <h1 className="text-2xl font-bold text-gray-800">
           Recruiters Management
         </h1>
-        <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
-          <div className="relative flex-1 sm:w-64">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <FaSearch className="text-gray-400" />
-            </div>
-            <input
-              type="text"
-              placeholder="Search recruiters..."
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+        <div className="relative flex-1 sm:w-64">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <FaSearch className="text-gray-400" />
           </div>
-          <select
-            className="block w-full sm:w-40 border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-          >
-            <option value="all">All Statuses</option>
-            {/* 'reviewed', 'pending', 'shortlisted', 'rejected' */}
-            <option value="reviewed">
-              Reviewed ({statusCounts.reviewed || 0})
-            </option>
-            <option value="pending">
-              Pending ({statusCounts.pending || 0})
-            </option>
-            <option value="shortlisted">
-              Shortlisted ({statusCounts.shortlisted || 0})
-            </option>
-            <option value="rejected">
-              Rejected ({statusCounts.rejected || 0})
-            </option>
-          </select>
-          <select
-            className="block w-full sm:w-48 border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            value={selectedIndustry}
-            onChange={(e) => setSelectedIndustry(e.target.value)}
-          >
-            <option value="all">All Industries</option>
-            {industries.map((industry, index) => (
-              <option key={index} value={industry}>
-                {industry}
-              </option>
-            ))}
-          </select>
+          <input
+            type="text"
+            placeholder="Search recruiters..."
+            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm font-medium text-gray-500">
-                Total Recruiters
-              </p>
-              <p className="text-2xl font-semibold text-gray-800 mt-1">
-                {recruiters.length}
-              </p>
-            </div>
-            <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600">
-              <FaBuilding size={18} />
-            </div>
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Approved</p>
-              <p className="text-2xl font-semibold text-gray-800 mt-1">
-                {statusCounts.shortlisted || 0}
-              </p>
-            </div>
-            <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-green-50 text-green-600">
-              <FaCheck size={18} />
-            </div>
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Pending</p>
-              <p className="text-2xl font-semibold text-gray-800 mt-1">
-                {statusCounts.pending || 0}
-                
-              </p>
-            </div>
-            <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-yellow-50 text-yellow-600">
-              <FaRegClock size={18} />
-            </div>
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm font-medium text-gray-500">Rejected</p>
-              <p className="text-2xl font-semibold text-gray-800 mt-1">
-                {statusCounts.rejected || 0}
-
-              </p>
-            </div>
-            <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-red-50 text-red-600">
-              <FaTimes size={18} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Recruiters Table */}
       <div className="bg-white shadow-sm rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Company
+                  Recruiter
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Contact
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Industry
+                  Experience
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Registered
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
@@ -295,29 +130,29 @@ const RecruitersManagement = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                        {recruiter.companyName.charAt(0)}
+                        {recruiter.fullName.charAt(0)}
                       </div>
                       <div className="ml-4">
                         <div className="font-medium text-gray-900">
-                          {recruiter.companyName}
+                          {recruiter.fullName}
                         </div>
                         <div className="text-sm text-gray-500">
-                          {recruiter.companyWebsite || 'No website'}
+                          {recruiter.yearsOfExperience}
                         </div>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {recruiter.contactPerson}
+                      {recruiter.email}
                     </div>
                     <div className="text-sm text-gray-500">
-                      {recruiter.email}
+                      {recruiter.phone}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-500">
-                      {recruiter.industry}
+                      {recruiter.yearsOfExperience}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -325,42 +160,8 @@ const RecruitersManagement = () => {
                       {new Date(recruiter.createdAt).toLocaleDateString()}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span
-                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        recruiter.status === 'pending'
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : recruiter.status === 'approved'
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-red-100 text-red-800'
-                      }`}
-                    >
-                      {recruiter.status.charAt(0).toUpperCase() +
-                        recruiter.status.slice(1)}
-                    </span>
-                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex justify-end space-x-2">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          updateStatus(recruiter._id, 'shortlisted');
-                        }}
-                        className="text-gray-500 hover:text-green-600 p-1 rounded-full hover:bg-green-50"
-                        title="Approve"
-                      >
-                        <FaCheck size={16} />
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          updateStatus(recruiter._id, 'rejected');
-                        }}
-                        className="text-gray-500 hover:text-red-600 p-1 rounded-full hover:bg-red-50"
-                        title="Suspend"
-                      >
-                        <FaTimes size={16} />
-                      </button>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -380,152 +181,133 @@ const RecruitersManagement = () => {
         </div>
       </div>
 
-      {/* Recruiter Details Modal */}
       {selectedRecruiter && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+              <h2 className="text-xl font-semibold text-gray-800">
+                Recruiter Details
+              </h2>
+              <button
+                onClick={() => setSelectedRecruiter(null)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
             <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="md:col-span-1">
-                  <div className="flex flex-col items-center">
-                    <div className="h-24 w-24 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-3xl font-bold mb-4">
-                      {selectedRecruiter.companyName.charAt(0)}
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900">
-                      {selectedRecruiter.companyName}
-                    </h3>
-                    <p className="text-gray-500">
-                      {selectedRecruiter.industry}
-                    </p>
-                  </div>
+              {/* Profile Section */}
+              <div className="flex items-start gap-6 mb-6">
+                <div className="bg-blue-100 text-blue-800 rounded-full h-16 w-16 flex items-center justify-center text-2xl font-bold">
+                  {selectedRecruiter.fullName.charAt(0)}
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-gray-900">
+                    {selectedRecruiter.fullName}
+                  </h3>
+                  <p className="text-gray-600">
+                    {selectedRecruiter.yearsOfExperience} experience
+                  </p>
+                  <p className="text-gray-500 text-sm mt-1">
+                    {selectedRecruiter.preferredTimezone}
+                  </p>
+                </div>
+              </div>
 
-                  <div className="mt-6 space-y-3">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <FaUserTie className="mr-2" />
-                      {selectedRecruiter.contactPerson}
-                    </div>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <FaEnvelope className="mr-2" />
-                      {selectedRecruiter.email}
-                    </div>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <FaPhone className="mr-2" />
-                      {selectedRecruiter.phone || 'Not provided'}
-                    </div>
-                    {selectedRecruiter.linkedin && (
-                      <div className="flex items-center text-sm text-blue-500">
-                        <FaLinkedin className="mr-2" />
-                        <a
-                          href={selectedRecruiter.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline"
-                        >
-                          LinkedIn Profile
-                        </a>
-                      </div>
-                    )}
-                    {selectedRecruiter.companyWebsite && (
-                      <div className="flex items-center text-sm text-blue-500">
-                        <FaGlobe className="mr-2" />
-                        <a
-                          href={selectedRecruiter.companyWebsite}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline"
-                        >
-                          Company Website
-                        </a>
-                      </div>
-                    )}
-                  </div>
+              {/* Contact Info */}
+              <div className="space-y-4 mb-6">
+                <div className="flex items-center">
+                  <FaEnvelope className="text-gray-500 mr-3" />
+                  <a
+                    href={`mailto:${selectedRecruiter.email}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {selectedRecruiter.email}
+                  </a>
                 </div>
 
-                <div className="md:col-span-2">
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="text-lg font-medium text-gray-900">
-                        Company Information
-                      </h4>
-                      <div className="mt-2 p-4 bg-gray-50 rounded-lg text-sm text-gray-700">
-                        {selectedRecruiter.companyDescription ||
-                          'No description provided'}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-lg font-medium text-gray-900">
-                        Status
-                      </h4>
-                      <div className="mt-2 flex items-center space-x-4">
-                        <select
-                          value={selectedRecruiter.status}
-                          onChange={(e) => {
-                            setSelectedRecruiter({
-                              ...selectedRecruiter,
-                              status: e.target.value,
-                            });
-                            updateStatus(selectedRecruiter._id, e.target.value);
-                          }}
-                          className="block w-48 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        >
-                          <option value="pending">Pending</option>
-                          <option value="approved">Approved</option>
-                          <option value="suspended">Suspended</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-lg font-medium text-gray-900">
-                        Notes
-                      </h4>
-                      <div className="mt-2">
-                        <textarea
-                          rows={3}
-                          className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                          placeholder="Add private notes about this recruiter..."
-                          value={selectedRecruiter.notes || ''}
-                          onChange={(e) =>
-                            setSelectedRecruiter({
-                              ...selectedRecruiter,
-                              notes: e.target.value,
-                            })
-                          }
-                        />
-                        <button
-                          onClick={() => saveNotes(selectedRecruiter._id)}
-                          className="mt-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                        >
-                          Save Notes
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-end space-x-3 pt-4">
-                      <button
-                        onClick={() =>
-                          (window.location.href = `mailto:${selectedRecruiter.email}`)
-                        }
-                        className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                      >
-                        <FaEnvelope className="mr-2" />
-                        Send Email
-                      </button>
-                      {selectedRecruiter.phone && (
-                        <button
-                          onClick={() =>
-                            (window.location.href = `tel:${selectedRecruiter.phone}`)
-                          }
-                          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                        >
-                          <FaPhone className="mr-2" />
-                          Call Recruiter
-                        </button>
-                      )}
-                    </div>
-                  </div>
+                <div className="flex items-center">
+                  <FaPhone className="text-gray-500 mr-3" />
+                  <span className="text-gray-700">
+                    {selectedRecruiter.phone || 'Not provided'}
+                  </span>
                 </div>
+
+                <div className="flex items-center">
+                  <FaLinkedin className="text-gray-500 mr-3" />
+                  <a
+                    href={selectedRecruiter.linkedInProfile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    LinkedIn Profile
+                  </a>
+                </div>
+              </div>
+
+              {/* CV Section */}
+              <div className="mb-6">
+                <h4 className="font-medium text-gray-800 mb-2">CV</h4>
+                <a
+                  href={selectedRecruiter.cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-blue-600 hover:underline"
+                >
+                  <FaFilePdf className="mr-2" />
+                  View PDF
+                </a>
+              </div>
+
+              {/* Additional Info */}
+              <div className="mb-6">
+                <h4 className="font-medium text-gray-800 mb-2">
+                  How they found us
+                </h4>
+                <p className="text-gray-700">
+                  {selectedRecruiter.howDidYouHear || 'Not specified'}
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() =>
+                    (window.location.href = `mailto:${selectedRecruiter.email}`)
+                  }
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
+                >
+                  <FaEnvelope />
+                  Email
+                </button>
+
+                {selectedRecruiter.phone && (
+                  <button
+                    onClick={() =>
+                      (window.location.href = `tel:${selectedRecruiter.phone}`)
+                    }
+                    className="flex items-center gap-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 py-2 px-4 rounded"
+                  >
+                    <FaPhone />
+                    Call
+                  </button>
+                )}
               </div>
             </div>
           </div>

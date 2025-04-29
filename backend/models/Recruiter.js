@@ -1,22 +1,80 @@
-// models/Recruiter.js
 const mongoose = require('mongoose');
 
 const recruiterSchema = new mongoose.Schema({
-  companyName: { type: String, required: true },
-  contactPerson: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  phone: { type: String, required: true },
-  companyWebsite: { type: String },
-  industry: { type: String, required: true },
-  hiringNeeds: { type: String, required: true },
-  status: {
+  fullName: {
     type: String,
-    enum: ['reviewed', 'pending', 'shortlisted', 'rejected'],
-    default: 'pending',
+    required: [true, 'Full name is required'],
   },
-  companySize: { type: String, required: true },
-  termsAgreed: { type: Boolean, required: true },
-  createdAt: { type: Date, default: Date.now },
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+    unique: true,
+    trim: true,
+    lowercase: true,
+    match: [/.+\@.+\..+/, 'Please enter a valid email'],
+  },
+  linkedInProfile: {
+    type: String,
+    required: [true, 'LinkedIn profile is required'],
+    match: [
+      /https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?/,
+      'Please enter a valid LinkedIn profile URL',
+    ],
+  },
+  phone: {
+    type: String,
+    required: [true, 'Phone number is required'],
+  },
+  yearsOfExperience: {
+    type: String,
+    required: [true, 'Years of experience is required'],
+    enum: ['0-1 years', '1-3 years', '3-5 years', '5-10 years', '10+ years'],
+  },
+  preferredTimezone: {
+    type: String,
+    required: [true, 'Preferred timezone is required'],
+    enum: [
+      'EST (Eastern Time)',
+      'CST (Central Time)',
+      'PST (Pacific Time)',
+      'GMT (Greenwich Mean Time)',
+      'CET (Central European Time)',
+      'IST (Indian Standard Time)',
+      'Other',
+    ],
+  },
+  howDidYouHear: {
+    type: String,
+    required: [true, 'Source is required'],
+    enum: [
+      'LinkedIn',
+      'Referral',
+      'Google Search',
+      'Social Media',
+      'Job Board',
+      'Other',
+    ],
+  },
+  cvUrl: {
+    type: String,
+    required: [true, 'CV is required'],
+  },
+  termsAgreed: {
+    type: Boolean,
+    required: [true, 'You must agree to the terms and conditions'],
+    validate: {
+      validator: function (v) {
+        return v === true;
+      },
+      message: 'You must agree to the terms and conditions',
+    },
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-module.exports = mongoose.model('Recruiter', recruiterSchema);
+const Recruiter = mongoose.model('Recruiter', recruiterSchema);
+
+module.exports = Recruiter;

@@ -1,288 +1,105 @@
 const Recruiter = require('../models/Recruiter');
-const { sendWelcomeEmail } = require('../services/emailService');
+const { uploadToCloudinary } = require('../utils/cloudinary');
+const { validationResult } = require('express-validator');
 
-// @desc    Register a new recruiter
-// @route   POST /api/recruiters/register
-// @access  Public
 exports.registerRecruiter = async (req, res) => {
   try {
-    const {
-      companyName,
-      contactPerson,
-      email,
-      phone,
-      companyWebsite,
-      industry,
-      hiringNeeds,
-      companySize,
-      termsAgreed,
-    } = req.body;
-
-    // Validate required fields
-    if (!companyName || !contactPerson || !email || !termsAgreed) {
-      return res.status(400).json({
-        success: false,
-        error: 'Required fields are missing',
-      });
+    console.log('Request body:', req.body);
+    // Validate request
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
-    // Check if recruiter already exists
-    const existingRecruiter = await Recruiter.findOne({ email });
-    if (existingRecruiter) {
-      return res.status(400).json({
-        success: false,
-        error: 'Email already registered',
-      });
+    // Check if file exists
+    if (!req.file) {
+      return res.status(400).json({ error: 'CV file is required' });
     }
+
+    // Upload CV to Cloudinary
+    const cloudinaryResult = await uploadToCloudinary(req.file.buffer);
+    console.log(req);
+
+    // Create recruiter data
+    const recruiterData = {
+      fullName: req.body.fullName,
+      email: req.body.email,
+      linkedInProfile: req.body.linkedInProfile,
+      phone: req.body.phone,
+      yearsOfExperience: req.body.yearsOfExperience,
+      preferredTimezone: req.body.preferredTimezone,
+      howDidYouHear: req.body.howDidYouHear,
+      cvUrl: cloudinaryResult.secure_url,
+      termsAgreed: req.body.termsAgreed === 'true',
+    };
 
     // Create new recruiter
-    const recruiter = new Recruiter({
-      companyName,
-      contactPerson,
-      email,
-      phone: phone || undefined,
-      companyWebsite: companyWebsite || undefined,
-      industry: industry || undefined,
-      hiringNeeds: hiringNeeds || undefined,
-      companySize: companySize || undefined,
-      termsAgreed,
-    });
-
-    await recruiter.save();
-
-    // Send welcome email (non-blocking)
-    try {
-      await sendWelcomeEmail(email, companyName);
-    } catch (emailError) {
-      console.error('Failed to send welcome email:', emailError);
-    }
+    const recruiter = await Recruiter.create(recruiterData);
 
     res.status(201).json({
       success: true,
+      data: recruiter,
       message: 'Recruiter registered successfully',
-      data: {
-        id: recruiter._id,
-        companyName: recruiter.companyName,
-        email: recruiter.email,
-        status: recruiter.status,
-      },
     });
   } catch (error) {
     console.error('Error registering recruiter:', error);
+
+    // Handle duplicate email error
+    if (error.code === 11000 && error.keyPattern.email) {
+      return res.status(400).json({
+        success: false,
+        error: 'Email already exists',
+      });
+    }
+
     res.status(500).json({
       success: false,
-      error: 'Internal server error',
-      message: error.message,
+      error: 'Server error during registration',
     });
   }
 };
 
-// @desc    Get all recruiters
-// @route   GET /api/recruiters
-// @access  Private/Admin
 exports.getRecruiters = async (req, res) => {
   try {
-    const { status, industry } = req.query;
-    let query = {};
-
-    if (status) query.status = status;
-    if (industry) query.industry = industry;
-
-    const recruiters = await Recruiter.find(query)
-      .sort({ createdAt: -1 })
-      .select('-__v -password');
-
+    const recruiters = await Recruiter.find().sort({ createdAt: -1 });
     res.status(200).json({
       success: true,
       count: recruiters.length,
       data: recruiters,
     });
   } catch (error) {
-    console.error('Error fetching recruiters:', error);
     res.status(500).json({
       success: false,
-      error: 'Server error',
+      error: 'Server error fetching recruiters',
     });
   }
 };
 
-// @desc    Get single recruiter
-// @route   GET /api/recruiters/:id
-// @access  Private/Admin
-exports.getRecruiter = async (req, res) => {
-  try {
-    const recruiter = await Recruiter.findById(req.params.id).select(
-      '-__v -password'
-    );
-
-    if (!recruiter) {
-      return res.status(404).json({
+exports.getRescruiterbyId = async (req, res) => {
+    try {
+        const recruiter = await Recruiter.findById(req.params.id);
+        if (!recruiter) {
+        return res.status(404).json({
+            success: false,
+            error: 'Recruiter not found',
+        });
+        }
+        res.status(200).json({
+        success: true,
+        data: recruiter,
+        });
+    } catch (error) {
+        res.status(500).json({
         success: false,
-        error: 'Recruiter not found',
-      });
+        error: 'Server error fetching recruiter',
+        });
     }
+    };
+    
 
-    res.status(200).json({
-      success: true,
-      data: recruiter,
-    });
-  } catch (error) {
-    console.error('Error fetching recruiter:', error);
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({
-        success: false,
-        error: 'Recruiter not found',
-      });
-    }
-    res.status(500).json({
-      success: false,
-      error: 'Server error',
-    });
-  }
-};
-
-// @desc    Update recruiter
-// @route   PUT /api/recruiters/:id
-// @access  Private/Admin
-exports.updateRecruiter = async (req, res) => {
-  try {
-    const recruiter = await Recruiter.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      {
-        new: true,
-        runValidators: true,
-      }
-    ).select('-__v -password');
-
-    if (!recruiter) {
-      return res.status(404).json({
-        success: false,
-        error: 'Recruiter not found',
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      data: recruiter,
-    });
-  } catch (error) {
-    console.error('Error updating recruiter:', error);
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({
-        success: false,
-        error: 'Recruiter not found',
-      });
-    }
-    res.status(500).json({
-      success: false,
-      error: 'Server error',
-    });
-  }
-};
-
-// @desc    Update recruiter status
-// @route   PUT /api/recruiters/status/:id
-// @access  Private/Admin
-exports.updateRecruiterStatus = async (req, res) => {
-  try {
-    const { status } = req.body;
-
-    if (!['reviewed', 'pending', 'shortlisted', 'rejected'].includes(status)) {
-      return res.status(400).json({
-        success: false,
-        error: 'Invalid status value',
-      });
-    }
-
-    const recruiter = await Recruiter.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      {
-        new: true,
-        runValidators: true,
-      }
-    ).select('-__v -password');
-
-    if (!recruiter) {
-      return res.status(404).json({
-        success: false,
-        error: 'Recruiter not found',
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      data: recruiter,
-    });
-  } catch (error) {
-    console.error('Error updating recruiter status:', error);
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({
-        success: false,
-        error: 'Recruiter not found',
-      });
-    }
-    res.status(500).json({
-      success: false,
-      error: 'Server error',
-    });
-  }
-};
-
-// @desc    Add recruiter note
-// @route   PATCH /api/recruiters/:id/notes
-// @access  Private/Admin
-exports.addRecruiterNote = async (req, res) => {
-  try {
-    const { note } = req.body;
-
-    if (!note) {
-      return res.status(400).json({
-        success: false,
-        error: 'Note content is required',
-      });
-    }
-
-    const recruiter = await Recruiter.findByIdAndUpdate(
-      req.params.id,
-      { $push: { notes: note } },
-      { new: true }
-    ).select('-__v -password');
-
-    if (!recruiter) {
-      return res.status(404).json({
-        success: false,
-        error: 'Recruiter not found',
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      data: recruiter.notes,
-    });
-  } catch (error) {
-    console.error('Error adding recruiter note:', error);
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({
-        success: false,
-        error: 'Recruiter not found',
-      });
-    }
-    res.status(500).json({
-      success: false,
-      error: 'Server error',
-    });
-  }
-};
-
-// @desc    Delete recruiter
-// @route   DELETE /api/recruiters/:id
-// @access  Private/Admin
 exports.deleteRecruiter = async (req, res) => {
   try {
-    const recruiter = await Recruiter.findByIdAndDelete(req.params.id);
-
+    const recruiter = await Recruiter.findById(req.params.id);
     if (!recruiter) {
       return res.status(404).json({
         success: false,
@@ -290,21 +107,17 @@ exports.deleteRecruiter = async (req, res) => {
       });
     }
 
+    await recruiter.remove();
+
     res.status(200).json({
       success: true,
-      data: {},
+      message: 'Recruiter deleted successfully',
     });
   } catch (error) {
     console.error('Error deleting recruiter:', error);
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({
-        success: false,
-        error: 'Recruiter not found',
-      });
-    }
     res.status(500).json({
       success: false,
-      error: 'Server error',
+      error: 'Server error during deletion',
     });
   }
 };
