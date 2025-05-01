@@ -1,328 +1,195 @@
 
-// // import React, { useState } from 'react';
 
-// // const HeroSection = () => {
-// //   const [isModalOpen, setIsModalOpen] = useState(false);
-// //   const [formData, setFormData] = useState({
-// //     name: '',
-// //     email: '',
-// //   });
-
-// //   const handleInputChange = (e) => {
-// //     const { name, value } = e.target;
-// //     setFormData((prev) => ({
-// //       ...prev,
-// //       [name]: value,
-// //     }));
-// //   };
-
-// //   const handleSubmit = (e) => {
-// //     e.preventDefault();
-// //     // Add your subscription logic here (API call, etc.)
-// //     console.log('Subscribed:', formData);
-// //     alert(`Thanks for subscribing, ${formData.name}!`);
-// //     setIsModalOpen(false);
-// //     setFormData({ name: '', email: '' });
-// //   };
-
-// //   return (
-// //     <section className="relative">
-// //       {/* ... (rest of your existing hero section code) ... */}
-
-// //       {/* Container */}
-// //       <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
-// //         {/* Heading Div */}
-// //         <div className="mx-auto mb-12 w-full max-w-3xl text-center md:mb-16 lg:mb-20">
-// //           <h1 className="mb-4 text-4xl font-semibold md:text-6xl">
-// //             Find Your Dream Job Without The{' '}
-// //             <span className="px-4 text-[#1353fe]">Hassles</span>
-// //           </h1>
-// //           <p className="mx-auto mb-5 max-w-[528px] text-xl text-[#636262] lg:mb-8">
-// //             Browse and apply to quality job listings with our streamlined portal
-// //           </p>
-// //           {/* Button Wrap */}
-// //           <div className="flex justify-center">
-// //             <a
-// //               href="#"
-// //               className="mr-5 inline-block rounded-xl bg-black px-8 py-4 text-center font-semibold text-white [box-shadow:rgb(19,_83,_254)_6px_6px] md:mr-6"
-// //             >
-// //               Browse Jobs
-// //             </a>
-
-// //             {/* <a
-// //               href="#"
-// //               className="flex max-w-full flex-row items-center justify-center rounded-xl border border-solid border-[#1353fe] px-6 py-3 font-semibold text-[#1353fe] [box-shadow:rgb(19,_83,_254)_6px_6px] hover:bg-[#1353fe] hover:text-white transition-colors duration-200"
-// //               onClick={(e) => {
-// //                 e.preventDefault();
-// //                 // Add your subscription logic here
-// //                 // For example: open a modal, redirect to a signup page, etc.
-// //                 alert('Subscribe to our newsletter!');
-// //               }}
-// //             >
-// //               <img
-// //                 src="https://assets.website-files.com/63904f663019b0d8edf8d57c/63905a575ec39b6784fc687c_Play.svg"
-// //                 alt="Subscribe"
-// //                 className="mr-2 inline-block w-6"
-// //               />
-// //               <p className="text-black hover:text-white">Subscribe</p>
-// //             </a> */}
-
-// //             {/* Modified Subscribe Button */}
-// //             <button
-// //               onClick={() => setIsModalOpen(true)}
-// //               className="flex max-w-full flex-row items-center justify-center rounded-xl border border-solid border-[#1353fe] px-6 py-3 font-semibold text-[#1353fe] [box-shadow:rgb(19,_83,_254)_6px_6px] hover:bg-[#1353fe] hover:text-white transition-colors duration-200"
-// //             >
-// //               <img
-// //                 src="https://assets.website-files.com/63904f663019b0d8edf8d57c/63905a575ec39b6784fc687c_Play.svg"
-// //                 alt="Subscribe"
-// //                 className="mr-2 inline-block w-6"
-// //               />
-// //               <p className="text-black hover:text-white">Subscribe</p>
-// //             </button>
-
-// //             {/* <a
-// //               href="#"
-// //               className="flex max-w-full flex-row items-center justify-center rounded-xl border border-solid border-[#1353fe] px-6 py-3 font-semibold text-[#1353fe] [box-shadow:rgb(19,_83,_254)_6px_6px]"
-// //             >
-// //               <img
-// //                 src="https://assets.website-files.com/63904f663019b0d8edf8d57c/63905a575ec39b6784fc687c_Play.svg"
-// //                 alt=""
-// //                 className="mr-2 inline-block w-6"
-// //               />
-// //               <p className="text-black">View Showreel</p>
-// //             </a> */}
-// //           </div>
-// //         </div>
-// //       </div>
-
-// //       {/* BG Images */}
-// //       <img
-// //         src="https://assets.website-files.com/63904f663019b0d8edf8d57c/63905b9f809b5c8180ce30c5_pattern-1.svg"
-// //         alt=""
-// //         className="hidden sm:inline-block absolute bottom-0 left-0 right-auto top-auto -z-10 md:bottom-1/2 md:left-0 md:right-auto md:top-auto"
-// //       />
-// //       <img
-// //         src="https://assets.website-files.com/63904f663019b0d8edf8d57c/63905ba1538296b3f50a905e_pattern-2.svg"
-// //         alt=""
-// //         className="absolute bottom-auto left-auto right-0 top-0 -z-10 hidden sm:inline-block"
-// //       />
-
-// //       {/* Subscription Modal */}
-// //       {isModalOpen && (
-// //         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-// //           <div className="relative w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
-// //             {/* Close Button */}
-// //             <button
-// //               onClick={() => setIsModalOpen(false)}
-// //               className="absolute right-4 top-4 text-gray-500 hover:text-black"
-// //             >
-// //               <svg
-// //                 xmlns="http://www.w3.org/2000/svg"
-// //                 className="h-6 w-6"
-// //                 fill="none"
-// //                 viewBox="0 0 24 24"
-// //                 stroke="currentColor"
-// //               >
-// //                 <path
-// //                   strokeLinecap="round"
-// //                   strokeLinejoin="round"
-// //                   strokeWidth={2}
-// //                   d="M6 18L18 6M6 6l12 12"
-// //                 />
-// //               </svg>
-// //             </button>
-
-// //             <h2 className="mb-6 text-2xl font-semibold">Join Our Newsletter</h2>
-
-// //             <form onSubmit={handleSubmit}>
-// //               <div className="mb-4">
-// //                 <label
-// //                   htmlFor="name"
-// //                   className="mb-2 block text-sm font-medium"
-// //                 >
-// //                   Your Name
-// //                 </label>
-// //                 <input
-// //                   type="text"
-// //                   id="name"
-// //                   name="name"
-// //                   value={formData.name}
-// //                   onChange={handleInputChange}
-// //                   className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-[#1353fe] focus:outline-none"
-// //                   required
-// //                 />
-// //               </div>
-
-// //               <div className="mb-6">
-// //                 <label
-// //                   htmlFor="email"
-// //                   className="mb-2 block text-sm font-medium"
-// //                 >
-// //                   Email Address
-// //                 </label>
-// //                 <input
-// //                   type="email"
-// //                   id="email"
-// //                   name="email"
-// //                   value={formData.email}
-// //                   onChange={handleInputChange}
-// //                   className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-[#1353fe] focus:outline-none"
-// //                   required
-// //                 />
-// //               </div>
-
-// //               <button
-// //                 type="submit"
-// //                 className="w-full rounded-xl bg-[#1353fe] px-6 py-3 font-semibold text-white hover:bg-[#0d46d0] transition-colors duration-200"
-// //               >
-// //                 Subscribe Now
-// //               </button>
-// //             </form>
-// //           </div>
-// //         </div>
-// //       )}
-// //     </section>
-// //   );
-// // };
-
-// // export default HeroSection;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // src/components/Hero.jsx
-// // import React from 'react';
-// import HeroIllustration from '../assets/HeroIllustration2.png';
-// import { useState, useEffect } from 'react';
-
-// // import GreenAsterisk from '../assets/green-asterisk.svg';
+// import React, {useEffect } from 'react';
+// import { motion, useAnimation } from 'framer-motion';
+// import { useInView } from 'react-intersection-observer';
+// // import HeroIllustration from '../assets/HeroIllustration3.png';
+// import HeroIllustration from '../assets/first.jpg';
 
 // const HeroSection = () => {
-//     const words = ['Dream', 'Desired','Perfect', 'Ideal'];
-//     const [currentWord, setCurrentWord] = useState(0);
 
-//     useEffect(() => {
-//       const interval = setInterval(() => {
-//         setCurrentWord((prev) => (prev + 1) % words.length);
-//       }, 2000);
-//       return () => clearInterval(interval);
-//     }, []);
-  
-//   const categories = [
-//     'Graphic Design',
-//     'Administration',
-//     'Business Management',
-//     'Marketing',
-//   ];
+//   const controls = useAnimation();
+//   const [ref, inView] = useInView({ threshold: 0.1 });
+
+
+
+//   useEffect(() => {
+//     if (inView) {
+//       controls.start('visible');
+//     }
+//   }, [controls, inView]);
+
+
+
+//   // Animation variants
+//   const container = {
+//     hidden: { opacity: 0 },
+//     visible: {
+//       opacity: 1,
+//       transition: {
+//         staggerChildren: 0.1,
+//         delayChildren: 0.3,
+//       },
+//     },
+//   };
+
+//   const item = {
+//     hidden: { y: 20, opacity: 0 },
+//     visible: {
+//       y: 0,
+//       opacity: 1,
+//       transition: {
+//         type: 'spring',
+//         stiffness: 100,
+//         damping: 10,
+//       },
+//     },
+//   };
 
 
 //   return (
-//     <>
-//       <section
-//         id="home"
-//         className="bg-gray-50 font-work px-4 sm:px-6 lg:px-8 xl:px-20"
-//       >
-//         <div className="max-w-screen-xl mx-auto py-8">
-//           {/* HERO CONTENT */}
-//           <div className="flex flex-col-reverse items-center md:flex-row md:justify-between mt-5">
-//             {/* Left text */}
-//             <div className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left text-gray-800">
-//               {/* <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4 inline-flex items-center justify-center md:justify-start">
-//                 <span>
-//                   Apply <span className="text-[#0041A8]">Effortlessly</span> to
-//                   <br />
-//                   Your Desired Jobs
+//     <motion.section
+//       id="home"
+//       ref={ref}
+//       initial="hidden"
+//       animate={controls}
+//       variants={container}
+//       className="bg-gray-50 font-work px-4 sm:px-6 lg:px-8 xl:px-20 relative overflow-hidden"
+//     >
+//       {/* Animated background elements */}
+//       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+//         <motion.div
+//           className="absolute top-0 left-0 w-40 h-40 bg-blue-100 rounded-full filter blur-3xl opacity-20"
+//           animate={{
+//             x: [0, 20, 0],
+//             y: [0, 15, 0],
+//           }}
+//           transition={{
+//             duration: 15,
+//             repeat: Infinity,
+//             ease: 'easeInOut',
+//           }}
+//         />
+//         <motion.div
+//           className="absolute bottom-0 right-0 w-60 h-60 bg-blue-100 rounded-full filter blur-3xl opacity-20"
+//           animate={{
+//             x: [0, -20, 0],
+//             y: [0, -15, 0],
+//           }}
+//           transition={{
+//             duration: 20,
+//             repeat: Infinity,
+//             ease: 'easeInOut',
+//             delay: 5,
+//           }}
+//         />
+//       </div>
+
+//       <div className="max-w-screen-xl mx-auto py-8 relative z-10">
+//         {/* HERO CONTENT */}
+//         <div className="flex flex-col-reverse items-center md:flex-row md:justify-between mt-5">
+//           {/* Left text */}
+//           <motion.div
+//             className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left text-gray-800"
+//             variants={item}
+//           >
+//             <motion.h1
+//               className="text-4xl sm:text-5xl font-bold leading-tight mb-4 inline-flex items-center justify-center md:justify-start"
+//               variants={item}
+//             >
+//               <span>Your Strategic Headhunting Partner</span>
+//             </motion.h1>
+
+//             <motion.div
+//               className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-center md:justify-start"
+//               variants={item}
+//             >
+//               {/* Browse Jobs */}
+//               <motion.a
+//                 href="/services"
+//                 className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-[#5F8DB8] rounded-xl group"
+//                 whileHover={{ y: -5 }}
+//                 whileTap={{ scale: 0.98 }}
+//               >
+//                 <span className="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-[#4E7895] rounded group-hover:-mr-4 group-hover:-mt-4">
+//                   <span className="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
 //                 </span>
-//               </h1> */}
-
-//               <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4 inline-flex items-center justify-center md:justify-start">
-//                 <span>
-//                   Apply <span className="">Effortlessly</span> to
-//                   <br />
-//                   Your{' '}
-//                   <span className="text-[#0041A8] transition-all duration-500">
-//                     {words[currentWord]}
-//                   </span>{' '}
-//                   Jobs
+//                 <span className="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-[#4E7895] rounded-xl group-hover:mb-12 group-hover:translate-x-0"></span>
+//                 <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">
+//                   Our Services
 //                 </span>
-//               </h1>
+//               </motion.a>
 
-//               <p className="text-lg text-gray-700 mb-6">
-//                 Start now and prepare yourself to get a new journey in a
-//                 <br />
-//                 professional field!
-//               </p>
-//               <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-center md:justify-start">
-//                 {/* Browse Jobs */}
-//                 <a
-//                   href="#jobs"
-//                   className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-[#5F8DB8] rounded-xl group"
-//                 >
-//                   <span className="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-[#4E7895] rounded group-hover:-mr-4 group-hover:-mt-4">
-//                     <span className="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
-//                   </span>
-//                   <span className="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-[#4E7895] rounded-xl group-hover:mb-12 group-hover:translate-x-0"></span>
-//                   <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">
-//                     Browse Jobs
-//                   </span>
-//                 </a>
+//               {/* Subscribe Us */}
+//               <motion.a
+//                 href="/contact"
+//                 className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-[#5F8DB8] rounded-xl group"
+//                 whileHover={{ y: -5 }}
+//                 whileTap={{ scale: 0.98 }}
+//               >
+//                 <span className="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-[#4E7895] rounded group-hover:-mr-4 group-hover:-mt-4">
+//                   <span className="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
+//                 </span>
+//                 <span className="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-[#4E7895] rounded-xl group-hover:mb-12 group-hover:translate-x-0"></span>
+//                 <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">
+//                   Contact Us
+//                 </span>
+//               </motion.a>
+//             </motion.div>
+//           </motion.div>
 
-//                 {/* Subscribe Us */}
-//                 <a
-//                   href="#subscribe"
-//                   className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-[#5F8DB8] rounded-xl group"
-//                 >
-//                   <span className="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-[#4E7895] rounded group-hover:-mr-4 group-hover:-mt-4">
-//                     <span className="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
-//                   </span>
-//                   <span className="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-[#4E7895] rounded-xl group-hover:mb-12 group-hover:translate-x-0"></span>
-//                   <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">
-//                     Subscribe Us
-//                   </span>
-//                 </a>
-//               </div>
-//             </div>
-
-//             {/* Right illustration */}
-//             <div className="w-full md:w-1/3 flex justify-center md:justify-end">
-//               <img
-//                 src={HeroIllustration}
-//                 alt="Happy candidate at desk"
-//                 className="w-full max-w-sm"
-//               />
-//             </div>
-//           </div>
-
-//           {/* CATEGORIES */}
-//           <div className="mt-12 text-center">
-//             <p className="text-lg mb-4">
-//               Find the right job or internship position for you:
-//             </p>
-//             <div className="flex flex-wrap justify-center gap-4 px-2">
-//               {categories.map((cat) => (
-//                 <button
-//                   key={cat}
-//                   className="px-4 py-2 border border-gray-800 rounded-full text-sm font-medium
-//                            hover:bg-gray-100 transition"
-//                 >
-//                   {cat}
-//                 </button>
-//               ))}
-//             </div>
-//           </div>
+//           {/* Right illustration */}
+//           <motion.div
+//             className="w-full md:w-1/2 flex justify-center md:justify-end"
+//             initial={{ opacity: 0, x: 50 }}
+//             animate={{ opacity: 1, x: 0 }}
+//             transition={{ delay: 0.5 }}
+//           >
+//             <motion.img
+//               src={HeroIllustration}
+//               alt="Happy candidate at desk"
+//               className="w-full max-w-sm"
+//               whileHover={{
+//                 y: -10,
+//                 transition: {
+//                   yoyo: Infinity,
+//                   duration: 2,
+//                   ease: 'easeInOut',
+//                 },
+//               }}
+//             />
+//           </motion.div>
 //         </div>
-//       </section>
-//     </>
+
+//         {/* CATEGORIES
+//         <motion.div className="mt-12 text-center" variants={item}>
+//           <motion.p
+//             className="text-lg mb-4"
+//             initial={{ opacity: 0 }}
+//             animate={{ opacity: 1 }}
+//             transition={{ delay: 0.8 }}
+//           >
+//             Find the right job or internship position for you:
+//           </motion.p>
+//           <div className="flex flex-wrap justify-center gap-4 px-2">
+//             {categories.map((cat, index) => (
+//               <motion.button
+//                 key={cat}
+//                 className="px-4 py-2 border border-gray-800 rounded-full text-sm font-medium
+//                          hover:bg-gray-100 transition"
+//                 whileHover={{ scale: 1.05, backgroundColor: '#f3f4f6' }}
+//                 whileTap={{ scale: 0.95 }}
+//                 initial={{ opacity: 0, y: 20 }}
+//                 animate={{ opacity: 1, y: 0 }}
+//                 transition={{ delay: 0.9 + index * 0.1 }}
+//               >
+//                 {cat}
+//               </motion.button>
+//             ))}
+//           </div>
+//         </motion.div> */}
+//       </div>
+//     </motion.section>
 //   );
 // };
 
@@ -342,36 +209,25 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+
+
+
+
+
+import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import HeroIllustration from '../assets/HeroIllustration2.png';
+import HeroIllustration from '../assets/first.jpg';
 
 const HeroSection = () => {
-  const words = ['Dream', 'Desired', 'Perfect', 'Ideal'];
-  const [currentWord, setCurrentWord] = useState(0);
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.1 });
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWord((prev) => (prev + 1) % words.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     if (inView) {
       controls.start('visible');
     }
   }, [controls, inView]);
-
-  const categories = [
-    'Graphic Design',
-    'Administration',
-    'Business Management',
-    'Marketing',
-  ];
 
   // Animation variants
   const container = {
@@ -398,11 +254,7 @@ const HeroSection = () => {
     },
   };
 
-  const wordVariants = {
-    enter: { y: 20, opacity: 0 },
-    center: { y: 0, opacity: 1 },
-    exit: { y: -20, opacity: 0 },
-  };
+  const floatingElements = Array(8).fill(null);
 
   return (
     <motion.section
@@ -411,107 +263,143 @@ const HeroSection = () => {
       initial="hidden"
       animate={controls}
       variants={container}
-      className="bg-gray-50 font-work px-4 sm:px-6 lg:px-8 xl:px-20 relative overflow-hidden"
+      className="relative overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 font-work px-4 sm:px-6 lg:px-8 xl:px-20 min-h-screen flex items-center"
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-0 left-0 w-40 h-40 bg-blue-100 rounded-full filter blur-3xl opacity-20"
-          animate={{
-            x: [0, 20, 0],
-            y: [0, 15, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute bottom-0 right-0 w-60 h-60 bg-blue-100 rounded-full filter blur-3xl opacity-20"
-          animate={{
-            x: [0, -20, 0],
-            y: [0, -15, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: 5,
-          }}
-        />
+      {/* Futuristic grid background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+        <div className="absolute inset-0 bg-grid-white/[0.05] [mask-image:linear-gradient(0deg,transparent,black)]"></div>
       </div>
 
-      <div className="max-w-screen-xl mx-auto py-8 relative z-10">
+      {/* Floating animated elements */}
+      {floatingElements.map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full bg-blue-500/10 backdrop-blur-sm"
+          style={{
+            width: Math.random() * 100 + 50,
+            height: Math.random() * 100 + 50,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            x: [0, (Math.random() - 0.5) * 100],
+            y: [0, (Math.random() - 0.5) * 100],
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration: 20 + Math.random() * 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+
+      {/* Glow effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-10 w-72 h-72 bg-blue-600 rounded-full filter blur-[100px] opacity-20"></div>
+        <div className="absolute bottom-1/4 -right-10 w-72 h-72 bg-indigo-600 rounded-full filter blur-[100px] opacity-20"></div>
+      </div>
+
+      <div className="max-w-screen-2xl mx-auto py-8 relative z-10 w-full">
         {/* HERO CONTENT */}
-        <div className="flex flex-col-reverse items-center md:flex-row md:justify-between mt-5">
+        <div className="flex flex-col-reverse items-center md:flex-row md:justify-between gap-12">
           {/* Left text */}
           <motion.div
-            className="w-full md:w-1/2 mt-8 md:mt-0 text-center md:text-left text-gray-800"
+            className="w-full md:w-1/2 text-center md:text-left"
             variants={item}
           >
+            <motion.div
+              className="inline-block mb-6 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              {/* <span className="text-sm font-medium text-white/80">
+                Strategic Talent Solutions
+              </span> */}
+            </motion.div>
+
             <motion.h1
-              className="text-4xl sm:text-5xl font-bold leading-tight mb-4 inline-flex items-center justify-center md:justify-start"
+              className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white"
               variants={item}
             >
-              <span>
-                Apply <span className="">Effortlessly</span> to
-                <br />
-                Your{' '}
+              <span className="relative inline-block">
+                <span className="relative z-10">Your Strategic</span>
                 <motion.span
-                  className="text-[#0041A8] inline-block"
-                  key={words[currentWord]}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  variants={wordVariants}
-                  transition={{ duration: 0.5 }}
-                >
-                  {words[currentWord]}
-                </motion.span>{' '}
-                Jobs
+                  className="absolute bottom-0 left-0 w-full h-2 bg-blue-500/50 z-0"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.6, duration: 1, ease: 'easeOut' }}
+                />
+              </span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">
+                Headhunting Partner
               </span>
             </motion.h1>
 
-            <motion.p className="text-lg text-gray-700 mb-6" variants={item}>
-              Start now and prepare yourself to get a new journey in a
-              <br />
-              professional field!
-            </motion.p>
+
 
             <motion.div
-              className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-center md:justify-start"
+              className="flex flex-col sm:flex-row sm:space-x-6 space-y-4 sm:space-y-0 justify-center md:justify-start"
               variants={item}
             >
-              {/* Browse Jobs */}
+              {/* Our Services Button */}
               <motion.a
-                href="#jobs"
-                className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-[#5F8DB8] rounded-xl group"
+                href="/services"
+                className="relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-medium group rounded-xl"
                 whileHover={{ y: -5 }}
                 whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 }}
               >
-                <span className="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-[#4E7895] rounded group-hover:-mr-4 group-hover:-mt-4">
-                  <span className="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
-                </span>
-                <span className="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-[#4E7895] rounded-xl group-hover:mb-12 group-hover:translate-x-0"></span>
-                <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">
-                  Browse Jobs
+                <span className="absolute inset-0 w-full h-full transition-all duration-300 ease-out bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl group-hover:from-blue-700 group-hover:to-indigo-700"></span>
+                <span className="absolute top-0 left-0 w-full bg-gradient-to-b from-white to-transparent opacity-5 h-1/3"></span>
+                <span className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-white to-transparent opacity-5"></span>
+                <span className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-white/20 to-transparent opacity-20"></span>
+                <span className="absolute inset-0 w-full h-full border border-white/10 rounded-xl"></span>
+                <span className="relative w-full text-left text-white text-lg font-semibold flex items-center justify-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Our Services
                 </span>
               </motion.a>
 
-              {/* Subscribe Us */}
+              {/* Contact Us Button */}
               <motion.a
-                href="#subscribe"
-                className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-[#5F8DB8] rounded-xl group"
+                href="/contact"
+                className="relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-medium group rounded-xl"
                 whileHover={{ y: -5 }}
                 whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.1 }}
               >
-                <span className="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-[#4E7895] rounded group-hover:-mr-4 group-hover:-mt-4">
-                  <span className="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
-                </span>
-                <span className="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-[#4E7895] rounded-xl group-hover:mb-12 group-hover:translate-x-0"></span>
-                <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">
-                  Subscribe Us
+                <span className="absolute inset-0 w-full h-full transition-all duration-300 ease-out bg-transparent border-2 border-white/30 rounded-xl group-hover:border-white/50"></span>
+                <span className="absolute inset-0 w-full h-full bg-white/5 backdrop-blur-sm rounded-xl"></span>
+                <span className="relative w-full text-left text-white text-lg font-semibold flex items-center justify-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                  Contact Us
                 </span>
               </motion.a>
             </motion.div>
@@ -519,54 +407,76 @@ const HeroSection = () => {
 
           {/* Right illustration */}
           <motion.div
-            className="w-full md:w-1/3 flex justify-center md:justify-end"
+            className="w-full md:w-1/2 flex justify-center md:justify-end relative"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <motion.img
-              src={HeroIllustration}
-              alt="Happy candidate at desk"
-              className="w-full max-w-sm"
-              whileHover={{
-                y: -10,
-                transition: {
-                  yoyo: Infinity,
-                  duration: 2,
+            <div className="relative">
+              {/* Image container with futuristic border */}
+              <div className="relative z-10 rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-gray-800 to-gray-900 p-1 shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-2xl"></div>
+                <motion.img
+                  src={HeroIllustration}
+                  alt="Strategic headhunting partner"
+                  className="w-full max-w-lg rounded-xl relative z-10 object-cover"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.7, duration: 0.8 }}
+                  whileHover={{
+                    scale: 1.02,
+                    transition: {
+                      duration: 0.5,
+                      ease: 'easeInOut',
+                    },
+                  }}
+                />
+              </div>
+
+              {/* Floating elements around image */}
+              <motion.div
+                className="absolute -top-8 -left-8 w-20 h-20 bg-blue-500/10 backdrop-blur-sm rounded-full border border-white/10"
+                animate={{
+                  y: [0, -10, 0],
+                  rotate: [0, 10, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
                   ease: 'easeInOut',
-                },
-              }}
-            />
+                }}
+              />
+
+              <motion.div
+                className="absolute -bottom-6 -right-6 w-16 h-16 bg-indigo-500/10 backdrop-blur-sm rounded-lg border border-white/10"
+                animate={{
+                  y: [0, 10, 0],
+                  rotate: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 2,
+                }}
+              />
+
+              <motion.div
+                className="absolute -top-10 -right-10 w-24 h-24 bg-white/5 backdrop-blur-sm rounded-full border border-white/10"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 180, 360],
+                }}
+                transition={{
+                  duration: 12,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 1,
+                }}
+              />
+            </div>
           </motion.div>
         </div>
-
-        {/* CATEGORIES
-        <motion.div className="mt-12 text-center" variants={item}>
-          <motion.p
-            className="text-lg mb-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            Find the right job or internship position for you:
-          </motion.p>
-          <div className="flex flex-wrap justify-center gap-4 px-2">
-            {categories.map((cat, index) => (
-              <motion.button
-                key={cat}
-                className="px-4 py-2 border border-gray-800 rounded-full text-sm font-medium
-                         hover:bg-gray-100 transition"
-                whileHover={{ scale: 1.05, backgroundColor: '#f3f4f6' }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 + index * 0.1 }}
-              >
-                {cat}
-              </motion.button>
-            ))}
-          </div>
-        </motion.div> */}
       </div>
     </motion.section>
   );

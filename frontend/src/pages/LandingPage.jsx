@@ -29,7 +29,10 @@ export default function LandingPage() {
   return (
     <div>
       <Navbar />
+      <div className='mt-10'>
+
       <HeroSection />
+      </div>
 
 
       <div className="">
@@ -39,8 +42,8 @@ export default function LandingPage() {
         <ServicesSection />
         <Team />
         <Testimonial />
-        <TechStacks />
-          <HowItWorksSection />
+        {/* <TechStacks /> */}
+          {/* <HowItWorksSection /> */}
           <ContactSection />
 
       </div>

@@ -72,7 +72,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import aboutImage from '../assets/WbQnbas.png';
+import aboutImage from '../assets/WbQnbas1.png';
 import { Link } from 'react-router-dom';
 
 export default function AboutSection() {
@@ -162,16 +162,15 @@ export default function AboutSection() {
           </motion.h2>
 
           <motion.p className="text-gray-700 mb-4" variants={item}>
-            Recruitify Global is on a mission to make your next career move
-            effortless. We connect top talent with their dream roles through our
-            streamlined platform, personalized recommendations, and expert
-            support.
+            Recruitify Global is a specialized recruitment agency dedicated to
+            bridging the gap between top tier talent and leading organizations.
           </motion.p>
 
           <motion.p className="text-gray-700" variants={item}>
-            Whether you're seeking a full-time position, contract work, or an
-            internship, our intuitive interface and powerful search make finding
-            the perfect opportunity faster than ever.
+            With a deep understanding of talent acquisition, executive search,
+            and employer branding, we help businesses build high performing
+            teams while empowering job seekers to find meaningful
+            career opportunities.
           </motion.p>
 
           <motion.div
@@ -195,7 +194,7 @@ export default function AboutSection() {
 
         {/* Illustration */}
         <motion.div
-          className="md:w-1/3"
+          className="md:w-1/2"
           initial={{ opacity: 0, x: 50 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ delay: 0.5 }}

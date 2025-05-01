@@ -95,7 +95,7 @@ const cleanUpFiles = (files) => {
 // @access  Public
 exports.createApplicant = async (req, res, next) => {
   try {
-    console.log('requested body', req.body.job);
+    // console.log('requested body', req.body.job);
     // Process uploaded files
     const fileData = processFiles(req.files);
 
@@ -174,7 +174,7 @@ exports.getApplicants = async (req, res, next) => {
 // @access  Private
 exports.getApplicant = async (req, res, next) => {
   try {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     const applicant = await Applicant.findById(req.params.id).select('-__v');
 
 
